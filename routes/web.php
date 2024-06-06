@@ -16,6 +16,9 @@ route::middleware('auth')->group(function () {
     route::get('/users', [UserController::class, 'users'])->name('users');
     Route::post('/user/filter', [UserController::class, 'filter'])->name('user-filters');
     Route::get('/user/show', [UserController::class, 'show'])->name('user-show');
+    Route::get('/user-report-show',[UserController::class,'userreportshow'])->name('user-report-show');
+    Route::post('/change-user-status',[UserController::class,'changeStatus'])->name('change-user-status');
+
     // Faq Route
     Route::get('faq-index', [FaqController::class, 'index'])->name('faq-index');
     Route::post('faq-store', [FaqController::class, 'store'])->name('faqs-store');

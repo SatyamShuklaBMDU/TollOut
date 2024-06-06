@@ -6,12 +6,22 @@
             color: white !important;
             border: none !important;
             border-radius: 8px !important;
-
         }
-        .dataTables_wrapper .dataTables_filter input{
+        .dataTables_wrapper .dataTables_filter input {
             border-radius: 12px !important;
         }
+        .table-centered th, .table-centered td {
+            text-align: center;
+            vertical-align: middle;
+        }
+        .dataTables_length label{
+            margin-left: 20px;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.2.2/css/buttons.dataTables.min.css">
 @endsection
 
 @section('content-area')
@@ -50,49 +60,23 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="customerTable" class="display nowrap" style="width:100%">
+                                        <table id="customerTable" class="display nowrap table-centered" style="width:100%">
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>S No.</th>
                                                     <th>Creation Date</th>
                                                     <th>CIN No.</th>
-                                                    <th>Name</th>
-                                                    {{-- <th>Gender</th> --}}
+                                                    <th>Profile</th>
+                                                    {{-- <th>Mr./Miss</th> --}}
+                                                    <th>Name</th> 
                                                     <th>Phone</th>
                                                     <th>Email</th>
                                                     <th>DOB</th>
-                                                    {{-- <th>View</th> --}}
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
-
                                             <tbody>
-                                                @foreach($users as $user)
-                                                <tr class="text-center">
-                                                    <td class="text-center">{{  $loop->iteration }}</td>
-                                                    <td>{{ date('d-m-Y', strtotime($user->created_at)) }}</td>
-                                                    <td>{{ $user->customer_id }}</td>
-                                                    <td>{{ $user->name }}</td>
-                                                    {{-- <td>{{ $user->gender }}</td> --}}
-                                                    <td>{{ $user->phone }}</td>
-                                                    <td>{{ $user->email }}</td>
-                                                    {{-- <td>{{ $user->dob }}</td> --}}
-                                                    <td>
-                                                        <a href="">
-                                                            <span id="togglePassword" class="eye-icon">
-                                                                👁️
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                    <td>
-                                                        <select class="form-select change-status-dropdown" data-customer-id="{{ $user->id }}">
-                                                            <option value="1" {{ $user->status == 1 ? 'selected' : '' }}>Activate</option>
-                                                            <option value="0" {{ $user->status == 0 ? 'selected' : '' }}>Deactivate</option>
-                                                        </select>
-                                                    </td>
-                                                </tr>
                                             </tbody>
-                                            @endforeach
                                         </table>
                                     </div>
                                 </div>
@@ -102,25 +86,77 @@
                 </div>
             </div>
         </section>
-        
-
       </div>
     </section>
 
 @endsection
 
-
 @section('script-area')
-    <script>
-        $(document).ready(function() {
-            $('#customerTable').DataTable({
-                dom: 'Bfrtip',
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.2/js/buttons.print.min.js"></script>
+    
+    <script type="text/javascript">
+        $(function () {
+            var table = $('#customerTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('user-report-show') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'created_at', name: 'Creation_Date'},
+                    {data: 'customer_id', name: 'CIN no.'},
+                    {data: 'profile', name: 'Profile', orderable: false, searchable: false},
+                    {data: 'name', name: 'Name'},
+                    {data: 'phone', name: 'Phone'},
+                    {data: 'email', name: 'Email'},
+                    {data: 'dob', name: 'DOB'},
+                    {data: 'status', name: 'Action', orderable: false, searchable: false}
+                ],
+                dom: 'Blfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+                pageLength: 10
+            });
+
+            // Handle the change event for the status dropdown
+            $(document).on('change', '.change-status-dropdown', function() {
+                var customerId = $(this).data('customer-id');
+                var status = $(this).val();
+
+                $.ajax({
+                    url: '{{ route("change-user-status") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        customer_id: customerId,
+                        status: status
+                    },
+                    success: function(response) {
+                        // alert('Status updated successfully!');
+                        Swal.fire({
+                            title: "Status Updated Successfully",
+                            // text: "Thanks for Subscription",
+                            icon: "success"
+                        });
+                        table.ajax.reload();
+                    },
+                    error: function(xhr, status, error) {
+                        Swal.fire({
+                            title: "An error occurred while updating the status.",
+                        });
+                    }
+                });
             });
         });
     </script>
-
 @endsection
-
