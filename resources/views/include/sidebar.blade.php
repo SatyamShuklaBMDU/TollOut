@@ -18,11 +18,18 @@
       </li><!-- End Profile Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="{{route('faq-index')}}">
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
       </li><!-- End F.A.Q Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed {{ request()->routeIs('show-notification') ? 'active' : '' }}" href="{{route('show-notification')}}">
+          <i class="bi bi-bell"></i>
+          <span>Notifications</span>
+        </a>
+      </li><!-- End Notifications Page Nav -->
 
       <li class="nav-item">
         <a class="nav-link collapsed" href="pages-contact.html">

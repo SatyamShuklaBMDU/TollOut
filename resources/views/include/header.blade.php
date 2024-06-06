@@ -2,7 +2,7 @@
  <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{{ route('dashborad')}}" class="logo d-flex align-items-center">
         <img src="{{asset('images/TOLL (12).png')}}" alt=""height="80px !important" width="120px !important">
         {{-- <span class="d-none d-lg-block">Toll Out</span> --}}
       </a>
