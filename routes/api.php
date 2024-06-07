@@ -13,3 +13,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('get-faq', [FaqController::class, 'index']);
 });
 Route::get('get-notification',[NotificationController::class,'index']);
+Route::post('/update',[RegistrationController::class,'update'])->middleware('auth:sanctum');

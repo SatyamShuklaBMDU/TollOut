@@ -19,3 +19,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/fontawesome.min.js"></script>
 <!-- Template Main JS File -->
 <script src="{{ asset('js/main.js') }}"></script>
+  
