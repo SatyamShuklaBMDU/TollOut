@@ -124,4 +124,25 @@ class RegistrationController extends Controller
         }
        
     }
+    public function reset(Request $request){
+        try{
+        $login = Auth::user();
+        // dd($login);
+        $customer = customer::findOrFail($login->id);
+        $validator = Validator::make($request->all(),[
+            'new_password' => 'required|min:8|max:12|string',
+        ]);
+        if($validator->fails()){
+            return response()->json(['status'=> false,'message'=> $validator->errors()],400);
+        }
+        $data=[
+            'password' => $request->password ? $request->password : hash::make($request->new_password),
+        ];
+        $customer->update($data);
+        return response()->json(['status'=>true,'message' => 'Password Updated Successfully', 'data' => $customer]);
+        }
+        catch(\Exception $e){
+            return response()->json(['status'=> false,'message'=> $e->getMessage()],500);
+        }
+    }
 }

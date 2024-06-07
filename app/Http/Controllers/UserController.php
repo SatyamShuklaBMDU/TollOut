@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\customer;
-use Yajra\DataTables\Facades\Datatables;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
     public function users()
     {
-        $users = customer::all();
+        $users = customer::latest()->get();
         return view("admin.all_users", compact("users"));
     }
     public function filter(Request $request)
@@ -34,13 +34,24 @@ class UserController extends Controller
         // $users = customer::all();
         return view('admin.all_users', compact('users'));
     }
-    public function userreportshow()
+    public function userreportshow(Request $request)
     {
-        if (request()->ajax()) {
-            $data = customer::latest()->get();
-            return DataTables::of($data)
+        if ($request->ajax()) {
+            $query = customer::query();
+
+            // Check if date range is provided
+            if ($request->filled('start_date') && $request->filled('end_date')) {
+                $startDate = $request->start_date;
+                $endDate = $request->end_date;
+
+                // Filter records based on the provided date range
+                $query->whereBetween('created_at', [$startDate, $endDate]);
+            }
+
+            $data = $query->latest()->get();
+            return \Yajra\DataTables\Facades\DataTables::of($data)
                 ->addIndexColumn()
-                ->addColumn('profile', function($row) {
+                ->addColumn('profile', function ($row) {
                     $imageUrl = asset($row->profile);
                     if (!empty($row->profile) && file_exists(public_path($row->profile))) {
                         return '<img src="' . $imageUrl . '" alt="Profile Picture" width="50" height="50">';
@@ -48,7 +59,7 @@ class UserController extends Controller
                         return 'Profile Not Found';
                     }
                 })
-                ->editColumn('created_at', function($row) {
+                ->editColumn('created_at', function ($row) {
                     return date('d-m-Y', strtotime($row->created_at));
                 })
                 ->editColumn('status', function ($row) {
@@ -63,12 +74,11 @@ class UserController extends Controller
         }
         return view('admin.all_users');
     }
-
     public function changeStatus(Request $request)
     {
         $customer = customer::findOrFail($request->customer_id);
         $customer->status = $request->status;
-        $customer->save();  
+        $customer->save();
 
         return response()->json(['success' => 'Status updated successfully!']);
     }
