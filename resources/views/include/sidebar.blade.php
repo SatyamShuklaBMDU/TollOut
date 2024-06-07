@@ -32,9 +32,9 @@
       </li><!-- End Notifications Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-contact.html">
+        <a class="nav-link collapsed" href="{{route('show-category')}}">
           <i class="bi bi-envelope"></i>
-          <span>Contact</span>
+          <span>Category</span>
         </a>
       </li><!-- End Contact Page Nav -->
 

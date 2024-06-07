@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NotificationController;
@@ -16,7 +17,7 @@ route::middleware('auth')->group(function () {
     route::get('/users', [UserController::class, 'users'])->name('users');
     Route::post('/user/filter', [UserController::class, 'filter'])->name('user-filters');
     Route::get('/user/show', [UserController::class, 'show'])->name('user-show');
-    Route::get('/user-report-show',[UserController::class,'userreportshow'])->name('user-report-show');
+    Route::post('/user-report-show',[UserController::class,'userreportshow'])->name('user-report-show');
     Route::post('/change-user-status',[UserController::class,'changeStatus'])->name('change-user-status');
 
     // Faq Route
@@ -34,6 +35,14 @@ route::middleware('auth')->group(function () {
     Route::delete('/notifications/{notification}', [NotificationController::class, 'delete'])->name('notifications.destroy');
     Route::get('/notification/{id}/edit', [NotificationController::class, 'edit'])->name('notifications.edit');
     Route::post('filter-notification', [NotificationController::class, 'filterdata'])->name('filter-notification');
+    // Category Route
+    Route::get('/show-category', [CategoryController::class, 'index'])->name('show-category');
+    Route::post('/category-shiv', [CategoryController::class, 'store'])->name('category.store');
+    Route::post('/category-update', [CategoryController::class, 'update'])->name('category.update');
+    Route::post('/category/update-status', [CategoryController::class, 'updateStatus'])->name('update-category-status');
+    Route::delete('/category/{category}', [CategoryController::class, 'delete'])->name('category.destroy');
+    Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
+    Route::post('filter-category', [CategoryController::class, 'filterdata'])->name('filter-category');
 
 });
 

@@ -6,7 +6,7 @@
             color: white !important;
             border: none !important;
             border-radius: 8px !important;
-
+            box-shadow: 2px 10px 9px 0px #00000063 !important
         }
 
         .dataTables_wrapper .dataTables_filter input {
@@ -66,7 +66,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">Faq</li>
+                <li class="breadcrumb-item active">All Faq</li>
             </ol>
         </nav>
     </div>
@@ -83,14 +83,14 @@
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')
-                                            <div class="col-sm-1" style="margin-left: 10px; margin-top: 0px;">
+                                            <div class="col-sm-1 mt-4" style="margin-left: 10px; margin-top: 0px;">
                                                 <a class="btn text-white shadow-lg" href="{{ route('faq-index') }}"
-                                                    style="background-color:#f66f01;">Reset</a>
+                                                    style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
-                                            <div class="col-md-1">
+                                            <div class="col-md-1  mt-4">
                                                 <a href="#" class="btn shadow btn-xs sharp me-1 text-white"
                                                     data-bs-toggle="modal" data-bs-target="#basicModal2"
-                                                    style="margin-left:4rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
+                                                    style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
                                             </div>
                                         </div>
                                     </form>

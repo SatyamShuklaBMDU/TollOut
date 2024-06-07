@@ -13,16 +13,61 @@
         .dataTables_wrapper .dataTables_filter input {
             border-radius: 12px !important;
         }
+        .statusSwitch {
+            --s: 20px;
+            /* adjust this to control the size*/
+
+            height: calc(var(--s) + var(--s)/5);
+            width: auto;
+            /* some browsers need this */
+            aspect-ratio: 2.25;
+            border-radius: var(--s);
+            margin: calc(var(--s)/2);
+            display: grid;
+            cursor: pointer;
+            background-color: #ff7a7a;
+            box-sizing: content-box;
+            overflow: hidden;
+            transition: .3s .1s;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .statusSwitch:before {
+            content: "";
+            padding: calc(var(--s)/10);
+            --_g: radial-gradient(circle closest-side at calc(100% - var(--s)/2) 50%, #000 96%, #0000);
+            background:
+                var(--_g) 0 /var(--_p, var(--s)) 100% no-repeat content-box,
+                var(--_g) var(--_p, 0)/var(--s) 100% no-repeat content-box,
+                #fff;
+            mix-blend-mode: darken;
+            filter: blur(calc(var(--s)/12)) contrast(11);
+            transition: .4s, background-position .4s .1s,
+                padding cubic-bezier(0, calc(var(--_i, -1)*200), 1, calc(var(--_i, -1)*200)) .25s .1s;
+        }
+
+        .statusSwitch:checked {
+            background-color: #85ff7a;
+        }
+
+        .statusSwitch:checked:before {
+            padding: calc(var(--s)/10 + .05px) calc(var(--s)/10);
+            --_p: 100%;
+            --_i: 1;
+        }
     </style>
+    
 @endsection
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Notifications</h1>
+        <h1>All Categories</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Notification</li>
+                <li class="breadcrumb-item active">All Categories</li>
             </ol>
         </nav>
     </div>
@@ -31,21 +76,21 @@
             <section class="main_content dashboard_part">
                 <div class="main_content_iner">
                     <div class="container-fluid plr_30 body_white_bg pt_30">
-                        <div class="row justify-content-center"style="
-                                                                            margin-top: 20px !important;">
+                        <div class="row justify-content-center"style="margin-top: 20px !important;">
+                                                                            
                             <div class="col-lg-12 ">
                                 <div class="row mb" style="margin-bottom: 30px; margin-left: 5px;">
-                                    <form action="{{ route('filter-notification') }}" method="post">
+                                    <form action="{{ route('filter-category') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')
                                             <div class="col-sm-1 mt-4" style="margin-left: 10px; margin-top: 0px;">
-                                                <a class="btn text-white shadow-lg" href="{{ route('show-notification') }}"
+                                                <a class="btn text-white shadow-lg" href="{{ route('show-category') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
                                             <div class="col-md-1 mt-4">
-                                                <a href="#" class="btn shadow btn-xs sharp me-1 text-white"
-                                                    data-bs-toggle="modal" data-bs-target="#notificationModal"
+                                                <a href="{{ route('category.store')}}" class="btn shadow btn-xs sharp me-1 text-white"
+                                                    data-bs-toggle="modal" data-bs-target="#categoryModal"
                                                     style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
                                             </div>
                                         </div>
@@ -67,39 +112,41 @@
                                             <table id="customerTable" class="display nowrap" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th style="text-align: center;">Sr NO.</th>
+                                                        <th style="text-align: center;">Sr No.</th>
                                                         <th style="text-align: center;">Creating Date</th>
-                                                        <th style="text-align: center;">Title</th>
-                                                        <th style="text-align: center;">Messgae </th>
-                                                        <th style="text-align: center;">Image</th>
+                                                        <th style="text-align: center;">Category Name</th>
+                                                        <th style="text-align: center;">Category Image</th>
+                                                        <th style="text-align: center;">Status</th>
                                                         <th>Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @foreach ($notifications as $notification)
+                                                    @foreach ($categories as $category)
                                                         <tr>
                                                             <td class="text-center">{{ $loop->iteration }}</td>
                                                             <td style="text-align: center;">
-                                                                {{ $notification->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
+                                                                {{ $category->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
                                                             </td>
-                                                            <td style="text-align: center;">{{ $notification->title }}</td>
-                                                            <td style="text-align: center;">{{ $notification->description }}
+                                                            <td style="text-align: center;">{{ $category->name }}</td>
+                                                            {{-- <td style="text-align: center;">{{ $category->description }} --}}
                                                             </td>
                                                             <td style="text-align: center;"><a
-                                                                    href="{{ asset($notification->image) }}" target="_blank"
+                                                                    href="{{ asset($category->image) }}" target="_blank"
                                                                     rel="noopener noreferrer"><img class="rounded-circle"
-                                                                        width="35"
-                                                                        src="{{ asset($notification->image) }}"
+                                                                        width="35"height="35"
+                                                                        src="{{ asset($category->image) }}"
                                                                         alt=""></a>
+                                                            </td>
+                                                            <td>
+                                                                <input style="transform: translateY(0px);"
+                                                                    class="statusSwitch"
+                                                                    {{ $category->status == '1' ? 'checked' : '' }}
+                                                                    data-category-id="{{ $category->id }}" type="checkbox">
                                                             </td>
                                                             <td style="text-align: center;">
                                                                 <div class="d-flex">
-                                                                    <a class="btn btn-primary shadow btn-xs sharp me-1 edit-notification"
-                                                                        data-id="{{ $notification->id }}"
-                                                                        data-bs-toggle="modal"
-                                                                        data-bs-target="#editNotificationModal"><i
-                                                                            class="fas fa-pencil-alt"></i></a>
-                                                                    <a data-notify-id="{{ $notification->id }}"
+                                                                    <a class="btn btn-primary shadow btn-xs sharp me-1 edit-category" data-id="{{ $category->id }}" data-bs-toggle="modal" data-bs-target="#editCategoryModal"><i class="fas fa-pencil-alt"></i></a>
+                                                                    <a data-notify-id="{{ $category->id }}"
                                                                         class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
                                                                             class="fas fa-trash"></i></a>
                                                                 </div>
@@ -118,31 +165,31 @@
             </section>
         </div>
     </section>
-    <div class="modal fade" id="notificationModal">
+    <div class="modal fade" id="categoryModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h2">Add Notification</h5>
+                    <h5 class="modal-title h2">Add Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="{{ route('notifications.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('category.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="modal-body">
                         <div class="mb-3">
-                            <label for="notificationTitle" class="form-label text-dark fw-bold h5">Notification
-                                Title</label>
-                            <input type="text" name="title" class="form-control border-dark" id="notificationTitle"
-                                placeholder="Enter Notification Title">
+                            <label for="categoryName" class="form-label text-dark fw-bold h5">Category
+                                Name</label>
+                            <input type="text" name="name" class="form-control border-dark" id="categoryName"
+                                placeholder="Enter Category Name">
                         </div>
-                        <div class="mb-3">
+                        {{-- <div class="mb-3">
                             <label for="notificationMessage" class="form-label text-dark fw-bold h5">Notification
                                 Message</label>
                             <textarea class="form-control border-dark" name="message" id="notificationMessage" rows="3"
                                 placeholder="Enter Notification Message"></textarea>
-                        </div>
+                        </div> --}}
                         <div class="mb-3">
-                            <label for="notificationImage" class="form-label text-dark fw-bold h5">Image</label>
-                            <input type="file" name="image" class="form-control border-dark" id="notificationImage">
+                            <label for="categoryImage" class="form-label text-dark fw-bold h5">Image</label>
+                            <input type="file" name="image" class="form-control border-dark" id="categoryImage">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -155,33 +202,25 @@
     </div>
 
     <!--edit notification-->
-    <div class="modal fade" id="editNotificationModal">
+    <div class="modal fade" id="editCategoryModal">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title h2">Edit Notification</h5>
+                    <h5 class="modal-title h2">Edit Category</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form action="{{ route('notifications.update') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('category.update') }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('POST') <!-- Change to @method('PUT') if using PUT method -->
                     <div class="modal-body">
                         <input type="hidden" name="id" id="notifyId">
                         <div class="mb-3">
-                            <label for="notificationTitle" class="form-label text-dark fw-bold h5">Notification
-                                Title</label>
-                            <input type="text" class="form-control border-dark" id="editNotificationTitle"
-                                name="title" placeholder="Enter Notification Title">
+                            <label for="editCategoryName" class="form-label text-dark fw-bold h5">Category Name</label>
+                            <input type="text" class="form-control border-dark" id="editCategoryName" name="name" placeholder="Enter Category Name">
                         </div>
                         <div class="mb-3">
-                            <label for="notificationMessage" class="form-label text-dark fw-bold h5">Notification
-                                Message</label>
-                            <textarea class="form-control border-dark" id="editNotificationMessage" rows="3" name="message"
-                                placeholder="Enter Notification Message"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="editNotificationImage" class="form-label text-dark fw-bold h5">Image</label>
-                            <input type="file" class="form-control border-dark" id="editNotificationImage"
-                                name="image">
+                            <label for="editCategoryImage" class="form-label text-dark fw-bold h5">Category Image</label>
+                            <input type="file" class="form-control border-dark" id="editCategoryImage" name="image">
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -194,6 +233,54 @@
     </div>
 @endsection
 @section('script-area')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.statusSwitch').forEach(function(switchButton) {
+                switchButton.addEventListener('change', function() {
+                    var status = this.checked ? 1 : 0;
+                    var categoryId = this.dataset.categoryId;
+                    updateStatus(categoryId, status);
+                });
+            });
+        });
+
+        function updateStatus(categoryId, status) {
+            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+            var url = "{{ route('update-category-status') }}";
+            var data = {
+                _token: token,
+                categoryId: categoryId,
+                status: status
+            };
+
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-Token': token
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Success',
+                        text: 'Status updated successfully'
+                    });
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: 'An error occurred'
+                    });
+                });
+        }
+    </script>
+
     <script>
         $(document).ready(function() {
             $('#customerTable').DataTable({
@@ -211,18 +298,18 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('.edit-notification').click(function() {
+            $('.edit-category').click(function() {
                 var notification_id = $(this).data('id');
-                var url = '{{ route('notifications.edit', ':id') }}';
+                var url = '{{ route('category.edit', ':id') }}';
                 url = url.replace(':id', notification_id);
                 $.ajax({
                     url: url,
                     type: 'GET',
                     success: function(response) {
                         $('#notifyId').val(response.id);
-                        $('#editNotificationTitle').val(response.title);
-                        $('#editNotificationMessage').val(response.description);
-                        $('#editNotificationModal').modal('show');
+                        $('#editCategoryName').val(response.name);
+                        // $('#editNotificationMessage').val(response.message);
+                        $('#editCategoryModal').modal('show');
                     }
                 });
             });
@@ -253,7 +340,7 @@
 
         function deleteFAQ(notifyId) {
             var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('notifications.destroy', ':notifyId') }}".replace(':notifyId', notifyId);
+            var url = "{{ route('category.destroy', ':notifyId') }}".replace(':notifyId', notifyId);
             fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -263,14 +350,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to delete Notification');
+                        throw new Error('Failed to delete Category');
                     }
                     return response.json();
                 })
                 .then(data => {
                     swal.fire({
                         title: 'Deleted!',
-                        text: 'The Notification has been deleted.',
+                        text: 'The Category has been deleted.',
                         icon: 'success',
                         timer: 2000
                     }).then(() => {
@@ -281,7 +368,7 @@
                     console.error('Error:', error);
                     swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete Notification.',
+                        text: 'Failed to delete Category.',
                         icon: 'error'
                     });
                 });
