@@ -22,6 +22,10 @@
         .dataTables_length label {
             margin-left: 20px;
         }
+        .dataTables_paginate {
+            float: none;
+            text-align: center;
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
@@ -35,7 +39,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All User</li>
+                <li class="breadcrumb-item active">All Users</li>
             </ol>
         </nav>
     </div><!-- End Page Title -->
@@ -59,20 +63,20 @@
                                                 </p>
                                             </div>
                                             
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
                                                
                                                     <label for="start_date"><strong>From:</strong></label>
                                                     <input type="date" id="start_date" name="start_date"
-                                                        class="form-control"style="width:55%">
+                                                        class="form-control">
                                                 
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2 ms-4">
                                                 
                                                     <label for="end_date"><strong>To:</strong></label>
-                                                    <input type="date" id="end_date" name="end_date" class="form-control"style="width:55%">
+                                                    <input type="date" id="end_date" name="end_date" class="form-control">
                                    
                                             </div>
-                                            <div class="col-sm-1" style="margin-left: 10px; margin-top: 0px;">
+                                            <div class="col-sm-1 ms-4" style="margin-left: 10px; margin-top: 0px;">
                                                 <button type="button" id="filterButton" class="btn text-white shadow-lg mt-4"
                                                     style="background-color:#033496;box-shadow: 2px 10px 9px 0px #00000063 !important">Filter</button>
                                             </div>
@@ -143,27 +147,39 @@
                         d._token = '{{ csrf_token() }}'; // Add CSRF token to the request
                         d.start_date = $('#start_date').val();
                         d.end_date = $('#end_date').val();
+                        // Log the data being sent to the server for debugging
+                        console.log('Data sent to server:', d);
+                    },
+                    dataSrc: function(json) {
+                        // Log the data being received from the server for debugging
+                        console.log('Data received from server:', json);
+                        return json.data;
                     }
                 },
                 columns: [
                     {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'created_at', name: 'Creation_Date'},
-                    {data: 'customer_id', name: 'CIN no.'},
-                    {data: 'profile', name: 'Profile', orderable: false, searchable: false},
-                    {data: 'name', name: 'Name'},
-                    {data: 'phone', name: 'Phone'},
-                    {data: 'email', name: 'Email'},
-                    {data: 'dob', name: 'DOB'},
-                    {data: 'status', name: 'Action', orderable: false, searchable: false}
+                    {data: 'created_at', name: 'created_at'},
+                    {data: 'customer_id', name: 'customer_id'},
+                    {data: 'profile', name: 'profile', orderable: false, searchable: false},
+                    {data: 'name', name: 'name'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'email', name: 'email'},
+                    {data: 'dob', name: 'dob'},
+                    {data: 'status', name: 'status', orderable: false, searchable: false}
                 ],
                 dom: 'Blfrtip',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
                 ],
                 lengthMenu: [10, 25, 50, 75, 100],
-                pageLength: 10
+                pageLength: 10,
+                drawCallback: function(settings) {
+                    // Append length menu and pagination to custom containers
+                    $('#tableLength').html($('.dataTables_length'));
+                    $('#tablePagination').html($('.dataTables_paginate'));
+                }
             });
-
+    
             // Custom method for date comparison
             $.validator.addMethod("greaterThan", function(value, element, params) {
                 var startDate = $(params).val();
@@ -172,7 +188,7 @@
                 }
                 return true;
             }, 'End date must be greater than or equal to the start date.');
-
+    
             $('#filterForm').validate({
                 rules: {
                     start_date: {
@@ -193,29 +209,29 @@
                     end_date: {
                         required: "End date is required",
                         date: "Please enter a valid date",
-                        greaterThan: "End date must be greater than to the start date"
+                        greaterThan: "End date must be greater than the start date"
                     }
                 },
                 submitHandler: function(form) {
                     table.ajax.reload();
                 }
             });
-
+    
             $('#filterButton').on('click', function() {
                 $('#filterForm').submit();
             });
-
+    
             $('#resetButton').on('click', function() {
                 $('#start_date').val('');
                 $('#end_date').val('');
                 table.ajax.reload();
             });
-
+    
             // Handle the change event for the status dropdown
             $(document).on('change', '.change-status-dropdown', function() {
                 var customerId = $(this).data('customer-id');
                 var status = $(this).val();
-
+    
                 $.ajax({
                     url: '{{ route("change-user-status") }}',
                     method: 'POST',
@@ -240,4 +256,5 @@
             });
         });
     </script>
+    
 @endsection

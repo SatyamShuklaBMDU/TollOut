@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -27,6 +28,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'status'
     ];
 
     /**
@@ -61,5 +64,18 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public function hasPermission($permission)
+    {
+        try {
+            $userPermissions = json_decode($this->permission, true);
+            if (!is_array($userPermissions)) {
+                throw new \Exception('User permissions are not properly initialized');
+            }
+            return in_array($permission, $userPermissions);
+        } catch (\Throwable $th) {
+            Log::error($th->getMessage());
+            return false;
+        }
     }
 }

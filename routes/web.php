@@ -3,6 +3,7 @@
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ManageAdminController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -43,6 +44,12 @@ route::middleware('auth')->group(function () {
     Route::delete('/category/{category}', [CategoryController::class, 'delete'])->name('category.destroy');
     Route::get('/category/{id}/edit', [CategoryController::class, 'edit'])->name('category.edit');
     Route::post('filter-category', [CategoryController::class, 'filterdata'])->name('filter-category');
+    //manage admin
+    route::get('/manage-admin',[ManageAdminController::class, 'index'])->name('manage-admin');
+    route::get('/add-admin',[ManageAdminController::class, 'addadmin'])->name('add-admin');
+    route::post('/admin-store',[ManageAdminController::class, 'addadminstore'])->name('admin-store');
+    route::get('/edit-admin/{id}',[ManageAdminController::class, 'editadmin'])->name('edit-admin');
+    route::post('/edit-admin-store/{id}',[ManageAdminController::class, 'editadminstore'])->name('edit-admin-store');
 
 });
 

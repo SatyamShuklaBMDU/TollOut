@@ -13,7 +13,7 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="{{ route('users')}}">
           <i class="bi bi-person"></i>
-          <span>Users</span>
+          <span>All Users</span>
         </a>
       </li><!-- End Profile Page Nav -->
 
@@ -39,9 +39,9 @@
       </li><!-- End Contact Page Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-register.html">
+        <a class="nav-link collapsed" href="{{ route('manage-admin')}}">
           <i class="bi bi-card-list"></i>
-          <span>Register</span>
+          <span>Manage Admin</span>
         </a>
       </li><!-- End Register Page Nav -->
 

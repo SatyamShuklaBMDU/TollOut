@@ -66,7 +66,7 @@
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Faq</li>
+                <li class="breadcrumb-item active">All FAQs</li>
             </ol>
         </nav>
     </div>
@@ -102,18 +102,18 @@
                                             <table id="customerTable" class="display nowrap" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th>Sr NO.</th>
-                                                        <th>Creation Date</th>
+                                                        <th class="text-center">Sr NO.</th>
+                                                        <th class="text-center">Creation Date</th>
                                                         {{-- <th>Update Date, Time</th> --}}
-                                                        <th>FAQ Title</th>
-                                                        <th>FAQ Description</th>
-                                                        <th>Status</th>
-                                                        <th>Action</th>
+                                                        <th class="text-center">FAQ Title</th>
+                                                        <th class="text-center">FAQ Description</th>
+                                                        <th class="text-center">Status</th>
+                                                        <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($faqs as $faq)
-                                                        <tr>
+                                                        <tr class="text-center">
                                                             <td>{{ $loop->iteration }}</td>
                                                             <td>{{ $faq->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
                                                             </td>
@@ -127,14 +127,14 @@
                                                                     {{ \Illuminate\Support\Str::limit($faq->answer, 49) }}
                                                                 </a>
                                                             </td>
-                                                            <td>
+                                                            <td class="d-flex justify-content-center">
                                                                 <input style="transform: translateY(0px);"
                                                                     class="statusSwitch"
                                                                     {{ $faq->is_published == '1' ? 'checked' : '' }}
                                                                     data-faq-id="{{ $faq->id }}" type="checkbox">
                                                             </td>
                                                             <td>
-                                                                <div class="d-flex">
+                                                                <div class="d-flex justify-content-center">
                                                                     <a href="#"
                                                                         class="btn btn-primary shadow btn-xs sharp me-1 editBtn"
                                                                         data-faq-id="{{ $faq->id }}"
@@ -292,8 +292,8 @@
                     console.log(data);
                     Swal.fire({
                         icon: 'success',
-                        title: 'Success',
-                        text: 'Status updated successfully'
+                        title: 'Status Updated Successfully',
+                        // text: 'Status Updated Successfully'
                     });
                 })
                 .catch(error => {

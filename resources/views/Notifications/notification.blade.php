@@ -67,33 +67,33 @@
                                             <table id="customerTable" class="display nowrap" style="width:100%">
                                                 <thead>
                                                     <tr>
-                                                        <th style="text-align: center;">Sr NO.</th>
-                                                        <th style="text-align: center;">Creating Date</th>
-                                                        <th style="text-align: center;">Title</th>
-                                                        <th style="text-align: center;">Messgae </th>
-                                                        <th style="text-align: center;">Image</th>
-                                                        <th>Action</th>
+                                                        <th class="text-center">Sr NO.</th>
+                                                        <th class="text-center">Creating Date</th>
+                                                        <th class="text-center">Title</th>
+                                                        <th class="text-center">Messgae </th>
+                                                        <th class="text-center">Image</th>
+                                                        <th class="text-center">Action</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @foreach ($notifications as $notification)
                                                         <tr>
                                                             <td class="text-center">{{ $loop->iteration }}</td>
-                                                            <td style="text-align: center;">
+                                                            <td class="text-center">
                                                                 {{ $notification->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
                                                             </td>
-                                                            <td style="text-align: center;">{{ $notification->title }}</td>
-                                                            <td style="text-align: center;">{{ $notification->description }}
+                                                            <td class="text-center">{{ $notification->title }}</td>
+                                                            <td class="text-center">{{ $notification->description }}
                                                             </td>
-                                                            <td style="text-align: center;"><a
+                                                            <td class="text-center"><a
                                                                     href="{{ asset($notification->image) }}" target="_blank"
                                                                     rel="noopener noreferrer"><img class="rounded-circle"
-                                                                        width="35"
+                                                                        width="35"height="35"
                                                                         src="{{ asset($notification->image) }}"
                                                                         alt=""></a>
                                                             </td>
                                                             <td style="text-align: center;">
-                                                                <div class="d-flex">
+                                                                <div class="d-flex justify-content-center">
                                                                     <a class="btn btn-primary shadow btn-xs sharp me-1 edit-notification"
                                                                         data-id="{{ $notification->id }}"
                                                                         data-bs-toggle="modal"
