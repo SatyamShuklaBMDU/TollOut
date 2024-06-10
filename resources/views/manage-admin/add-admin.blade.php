@@ -271,41 +271,7 @@
             });
         });
 
-        function updateStatus(categoryId, status) {
-            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('update-category-status') }}";
-            var data = {
-                _token: token,
-                categoryId: categoryId,
-                status: status
-            };
-
-            fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': token
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Status updated successfully'
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred'
-                    });
-                });
-        }
+      
     </script>
 
     <script>
@@ -323,25 +289,7 @@
             toastr.success("{{ session('success') }}");
         @endif
     </script>
-    <script>
-        $(document).ready(function() {
-            $('.edit-category').click(function() {
-                var notification_id = $(this).data('id');
-                var url = '{{ route('category.edit', ':id') }}';
-                url = url.replace(':id', notification_id);
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(response) {
-                        $('#notifyId').val(response.id);
-                        $('#editCategoryName').val(response.name);
-                        // $('#editNotificationMessage').val(response.message);
-                        $('#editCategoryModal').modal('show');
-                    }
-                });
-            });
-        });
-    </script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.deleteBtn').forEach(function(deleteButton) {
@@ -365,40 +313,6 @@
             });
         });
 
-        function deleteFAQ(notifyId) {
-            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('category.destroy', ':notifyId') }}".replace(':notifyId', notifyId);
-            fetch(url, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': token
-                    }
-                })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Failed to delete Category');
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    swal.fire({
-                        title: 'Deleted!',
-                        text: 'The Category has been deleted.',
-                        icon: 'success',
-                        timer: 2000
-                    }).then(() => {
-                        location.reload();
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    swal.fire({
-                        title: 'Error!',
-                        text: 'Failed to delete Category.',
-                        icon: 'error'
-                    });
-                });
-        }
+      
     </script>
 @endsection

@@ -19,9 +19,12 @@
             vertical-align: middle;
         }
 
-        .dataTables_length label {
+        /* .dataTables_length label {
             margin-left: 20px;
-        }
+        } */
+         .dataTables_length{
+            margin-top: 10px;
+         }
         .dataTables_paginate {
             float: none;
             text-align: center;
@@ -91,15 +94,14 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="customerTable" class="display nowrap table-centered"
-                                                style="width:100%">
+                                            {{-- <div id="tableLength" class="table-control"></div> --}}
+                                            <table id="customerTable" class="display nowrap table-centered" style="width:100%">
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>S No.</th>
                                                         <th>Creation Date</th>
                                                         <th>CIN No.</th>
                                                         <th>Profile</th>
-                                                        {{-- <th>Mr./Miss</th> --}}
                                                         <th>Name</th>
                                                         <th>Phone</th>
                                                         <th>Email</th>
@@ -110,7 +112,9 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
+                                            {{-- <div id="tablePagination" class="table-control"></div> --}}
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -137,124 +141,124 @@
 
     <script type="text/javascript">
         $(function () {
-            var table = $('#customerTable').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "{{ route('user-report-show') }}",
-                    type: "POST",
-                    data: function(d) {
-                        d._token = '{{ csrf_token() }}'; // Add CSRF token to the request
-                        d.start_date = $('#start_date').val();
-                        d.end_date = $('#end_date').val();
-                        // Log the data being sent to the server for debugging
-                        console.log('Data sent to server:', d);
-                    },
-                    dataSrc: function(json) {
-                        // Log the data being received from the server for debugging
-                        console.log('Data received from server:', json);
-                        return json.data;
-                    }
-                },
-                columns: [
-                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-                    {data: 'created_at', name: 'created_at'},
-                    {data: 'customer_id', name: 'customer_id'},
-                    {data: 'profile', name: 'profile', orderable: false, searchable: false},
-                    {data: 'name', name: 'name'},
-                    {data: 'phone', name: 'phone'},
-                    {data: 'email', name: 'email'},
-                    {data: 'dob', name: 'dob'},
-                    {data: 'status', name: 'status', orderable: false, searchable: false}
-                ],
-                dom: 'Blfrtip',
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
-                lengthMenu: [10, 25, 50, 75, 100],
-                pageLength: 10,
-                drawCallback: function(settings) {
-                    // Append length menu and pagination to custom containers
-                    $('#tableLength').html($('.dataTables_length'));
-                    $('#tablePagination').html($('.dataTables_paginate'));
-                }
-            });
-    
-            // Custom method for date comparison
-            $.validator.addMethod("greaterThan", function(value, element, params) {
-                var startDate = $(params).val();
-                if (!/Invalid|NaN/.test(new Date(value)) && !/Invalid|NaN/.test(new Date(startDate))) {
-                    return new Date(value) >= new Date(startDate);
-                }
-                return true;
-            }, 'End date must be greater than or equal to the start date.');
-    
-            $('#filterForm').validate({
-                rules: {
-                    start_date: {
-                        required: true,
-                        date: true
-                    },
-                    end_date: {
-                        required: true,
-                        date: true,
-                        greaterThan: '#start_date'
-                    }
-                },
-                messages: {
-                    start_date: {
-                        required: "Start date is required",
-                        date: "Please enter a valid date"
-                    },
-                    end_date: {
-                        required: "End date is required",
-                        date: "Please enter a valid date",
-                        greaterThan: "End date must be greater than the start date"
-                    }
-                },
-                submitHandler: function(form) {
-                    table.ajax.reload();
-                }
-            });
-    
-            $('#filterButton').on('click', function() {
-                $('#filterForm').submit();
-            });
-    
-            $('#resetButton').on('click', function() {
-                $('#start_date').val('');
-                $('#end_date').val('');
-                table.ajax.reload();
-            });
-    
-            // Handle the change event for the status dropdown
-            $(document).on('change', '.change-status-dropdown', function() {
-                var customerId = $(this).data('customer-id');
-                var status = $(this).val();
-    
-                $.ajax({
-                    url: '{{ route("change-user-status") }}',
-                    method: 'POST',
-                    data: {
-                        _token: '{{ csrf_token() }}',
-                        customer_id: customerId,
-                        status: status
-                    },
-                    success: function(response) {
-                        Swal.fire({
-                            title: "Status Updated Successfully",
-                            icon: "success"
-                        });
-                        table.ajax.reload();
-                    },
-                    error: function(xhr, status, error) {
-                        Swal.fire({
-                            title: "An error occurred while updating the status.",
-                        });
-                    }
+    var table = $('#customerTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: {
+            url: "{{ route('user-report-show') }}",
+            type: "POST",
+            data: function(d) {
+                d._token = '{{ csrf_token() }}'; // Add CSRF token to the request
+                d.start_date = $('#start_date').val();
+                d.end_date = $('#end_date').val();
+                // Log the data being sent to the server for debugging
+                console.log('Data sent to server:', d);
+            },
+            dataSrc: function(json) {
+                // Log the data being received from the server for debugging
+                console.log('Data received from server:', json);
+                return json.data;
+            }
+        },
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'created_at', name: 'created_at'},
+            {data: 'customer_id', name: 'customer_id'},
+            {data: 'profile', name: 'profile', orderable: false, searchable: false},
+            {data: 'name', name: 'name'},
+            {data: 'phone', name: 'phone'},
+            {data: 'email', name: 'email'},
+            {data: 'dob', name: 'dob'},
+            {data: 'status', name: 'status', orderable: false, searchable: false}
+        ],
+        dom: '<"top"Bf>rt<"bottom"lp><"clear">',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        lengthMenu: [10, 25, 50, 75, 100],
+        pageLength: 10,
+        drawCallback: function(settings) {
+            // This function is no longer needed as lengthMenu and pagination are now correctly placed in the bottom div
+        }
+    });
+
+    // Custom method for date comparison
+    $.validator.addMethod("greaterThan", function(value, element, params) {
+        var startDate = $(params).val();
+        if (!/Invalid|NaN/.test(new Date(value)) && !/Invalid|NaN/.test(new Date(startDate))) {
+            return new Date(value) >= new Date(startDate);
+        }
+        return true;
+    }, 'End date must be greater than or equal to the start date.');
+
+    $('#filterForm').validate({
+        rules: {
+            start_date: {
+                required: true,
+                date: true
+            },
+            end_date: {
+                required: true,
+                date: true,
+                greaterThan: '#start_date'
+            }
+        },
+        messages: {
+            start_date: {
+                required: "Start date is required",
+                date: "Please enter a valid date"
+            },
+            end_date: {
+                required: "End date is required",
+                date: "Please enter a valid date",
+                greaterThan: "End date must be greater than the start date"
+            }
+        },
+        submitHandler: function(form) {
+            table.ajax.reload();
+        }
+    });
+
+    $('#filterButton').on('click', function() {
+        $('#filterForm').submit();
+    });
+
+    $('#resetButton').on('click', function() {
+        $('#start_date').val('');
+        $('#end_date').val('');
+        table.ajax.reload();
+    });
+
+    // Handle the change event for the status dropdown
+    $(document).on('change', '.change-status-dropdown', function() {
+        var customerId = $(this).data('customer-id');
+        var status = $(this).val();
+
+        $.ajax({
+            url: '{{ route("change-user-status") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                customer_id: customerId,
+                status: status
+            },
+            success: function(response) {
+                Swal.fire({
+                    title: "Status Updated Successfully",
+                    icon: "success"
                 });
-            });
+                table.ajax.reload();
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    title: "An error occurred while updating the status.",
+                });
+            }
         });
+    });
+});
+
+
     </script>
     
 @endsection

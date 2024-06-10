@@ -1,3 +1,4 @@
+{{-- @dd($users); --}}
 @extends('include.master')
 @section('style-area')
     <style>
@@ -8,6 +9,9 @@
             border-radius: 8px !important;
             box-shadow: 2px 10px 9px 0px #00000063 !important
 
+        }
+        .dataTables_length{
+            margin-top: 10px;
         }
 
         .dataTables_wrapper .dataTables_filter input {
@@ -80,12 +84,12 @@
                                                                             
                             <div class="col-lg-12 ">
                                 <div class="row mb" style="margin-bottom: 30px; margin-left: 5px;">
-                                    <form action="{{ route('filter-category') }}" method="post">
+                                    <form action="{{ route('filter-admin') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')
                                             <div class="col-sm-1 mt-4" style="margin-left: 10px; margin-top: 0px;">
-                                                <a class="btn text-white shadow-lg" href="{{ route('show-category') }}"
+                                                <a class="btn text-white shadow-lg" href="{{ route('manage-admin') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
                                             <div class="col-md-1 mt-4">
@@ -121,7 +125,7 @@
                                                     </th>
                                                     <th> Email</th>
                                                     <th> User Role </th>
-                                                    <th> User Permission </th>
+                                                    <th style="width:100px !important"> User Permission </th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -141,11 +145,11 @@
                                                                 $allpermission = implode(',', $userpermission);
                                                             }
                                                         @endphp
-                                                        <td>{{ $allpermission }}</td>
+                                                        <td style="width:100px !important">{{ $allpermission }}</td>
                                                         <td style="text-align: center;">
                                                             <div class="d-flex justify-content-center">
                                                                 <a href="{{ route('edit-admin',$user->id)}}" class="btn btn-primary shadow btn-xs sharp me-1 edit-category"><i class="fas fa-pencil-alt"></i></a>
-                                                                <a 
+                                                                <a data-notify-id="{{ $user->id }}"
                                                                     class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
                                                                         class="fas fa-trash"></i></a>
                                                             </div>
@@ -176,51 +180,20 @@
                 });
             });
         });
-
-        function updateStatus(categoryId, status) {
-            var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('update-category-status') }}";
-            var data = {
-                _token: token,
-                categoryId: categoryId,
-                status: status
-            };
-
-            fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-Token': token
-                    },
-                    body: JSON.stringify(data)
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Success',
-                        text: 'Status updated successfully'
-                    });
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error',
-                        text: 'An error occurred'
-                    });
-                });
-        }
     </script>
 
     <script>
-        $(document).ready(function() {
+       $(document).ready(function() {
             $('#customerTable').DataTable({
-                dom: 'Bfrtip',
+                dom: '<"top"Bf>rt<"bottom"lp><"clear">',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+                pageLength: 10,
+                drawCallback: function(settings) {
+            // This function is no longer needed as lengthMenu and pagination are now correctly placed in the bottom div
+                }
             });
         });
     </script>
@@ -229,25 +202,7 @@
             toastr.success("{{ session('success') }}");
         @endif
     </script>
-    <script>
-        $(document).ready(function() {
-            $('.edit-category').click(function() {
-                var notification_id = $(this).data('id');
-                var url = '{{ route('category.edit', ':id') }}';
-                url = url.replace(':id', notification_id);
-                $.ajax({
-                    url: url,
-                    type: 'GET',
-                    success: function(response) {
-                        $('#notifyId').val(response.id);
-                        $('#editCategoryName').val(response.name);
-                        // $('#editNotificationMessage').val(response.message);
-                        $('#editCategoryModal').modal('show');
-                    }
-                });
-            });
-        });
-    </script>
+  
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.deleteBtn').forEach(function(deleteButton) {
@@ -255,7 +210,7 @@
                     var userId = this.dataset.notifyId;
                     swal.fire({
                         title: 'Are you sure?',
-                        text: 'You will not be able to recover this Notification!',
+                        text: 'You will not be able to recover this Aadmin!',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
@@ -273,7 +228,7 @@
 
         function deleteFAQ(notifyId) {
             var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('category.destroy', ':notifyId') }}".replace(':notifyId', notifyId);
+            var url = "{{ route('delete-admin', ':notifyId') }}".replace(':notifyId', notifyId);
             fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -283,14 +238,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to delete Category');
+                        throw new Error('Failed to delete Notification');
                     }
                     return response.json();
                 })
                 .then(data => {
                     swal.fire({
                         title: 'Deleted!',
-                        text: 'The Category has been deleted.',
+                        text: 'The Notification has been deleted.',
                         icon: 'success',
                         timer: 2000
                     }).then(() => {
@@ -301,7 +256,7 @@
                     console.error('Error:', error);
                     swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete Category.',
+                        text: 'Failed to delete Notification.',
                         icon: 'error'
                     });
                 });

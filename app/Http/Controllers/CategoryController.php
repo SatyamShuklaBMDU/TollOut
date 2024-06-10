@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\feedback;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Validator;
@@ -10,7 +11,7 @@ class CategoryController extends Controller
 {
     public function index(){
        
-        $categories = Category::latest()->get();
+        $categories = feedback::latest()->get();
         return view("category.category",compact("categories"));
     }
     public function store(Request $request)
@@ -28,7 +29,7 @@ class CategoryController extends Controller
             $imagePath = $request->file('image')->move(public_path('Category/'), $imageFileName);
             $imageRelativePath = 'Category/' . $imageFileName;
         }
-        $Category = new Category();
+        $Category = new feedback();
         $Category->name = $request->name;
         $Category->image = $imageRelativePath ?? '';
         $Category->save();
@@ -38,14 +39,14 @@ class CategoryController extends Controller
 
     public function edit($id)
     {
-        $Category = Category::find($id);
+        $Category = feedback::find($id);
         return $Category;
     }
 
     public function update(Request $request)
     {
         // dd($request->all());
-        $Category = Category::find($request->id);
+        $Category = feedback::find($request->id);
 
         $validate = Validator::make($request->all(), [
             'name' => 'nullable|string|max:255',
@@ -69,7 +70,7 @@ class CategoryController extends Controller
 
     public function delete($id)
     {
-        $notify = Category::findOrFail($id);
+        $notify = feedback::findOrFail($id);
         $notify->delete();
         return response()->json(['success' => true]);
     }
@@ -82,13 +83,13 @@ class CategoryController extends Controller
         ]);
         $startDate = $request->start;
         $endDate = $request->end;
-        $categories = Category::whereBetween('created_at', [$startDate, $endDate])->get();
-        return view('category.category', ['category' => $categories, 'start' => $startDate, 'end' => $endDate]);
+        $categories = feedback::whereBetween('created_at', [$startDate, $endDate])->get();
+        return view('category.category', ['categories' => $categories, 'start' => $startDate, 'end' => $endDate]);
     }
     public function updateStatus(Request $request)
     {
         // dD($request->all());
-        $category = Category::findOrFail($request->categoryId);
+        $category = feedback::findOrFail($request->categoryId);
         // dd($category);
         $category->status = $request->status;
         $category->save();

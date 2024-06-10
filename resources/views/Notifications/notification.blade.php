@@ -9,7 +9,9 @@
             box-shadow: 2px 10px 9px 0px #00000063 !important
 
         }
-
+        .dataTables_length{
+            margin-top: 10px;
+        }
         .dataTables_wrapper .dataTables_filter input {
             border-radius: 12px !important;
         }
@@ -195,12 +197,17 @@
 @endsection
 @section('script-area')
     <script>
-        $(document).ready(function() {
+         $(document).ready(function() {
             $('#customerTable').DataTable({
-                dom: 'Bfrtip',
+                dom: '<"top"Bf>rt<"bottom"lp><"clear">',
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                ],
+                lengthMenu: [10, 25, 50, 75, 100],
+                pageLength: 10,
+                drawCallback: function(settings) {
+            // This function is no longer needed as lengthMenu and pagination are now correctly placed in the bottom div
+                }
             });
         });
     </script>

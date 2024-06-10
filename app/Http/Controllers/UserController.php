@@ -30,8 +30,7 @@ class UserController extends Controller
     // }
     public function show()
     {
-
-        // $users = customer::all();
+        $users = customer::all();
         return view('admin.all_users', compact('users'));
     }
     public function userreportshow(Request $request)

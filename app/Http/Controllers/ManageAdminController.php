@@ -9,7 +9,7 @@ use Hash;
 class ManageAdminController extends Controller
 {
     public function index(){
-        $users = User::all();
+        $users = User::where('status',false)->get();
         return view('manage-admin.manage-admin',compact('users'));
     }
     public function addadmin(){
@@ -60,5 +60,27 @@ class ManageAdminController extends Controller
         $user->save();
         return redirect()->route('manage-admin')->with('success', 'Admin Updated Successfully');
     }
-    
+    public function delete($id){
+        try{
+        $user = User::findOrFail($id)->where('status',false)->first();
+     
+        $user->delete();
+        return response()->json(['success' => true]);
+        } catch (\Exception $e) {
+        return response()->json(['success' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+    public function filterdata(Request $request)
+    {
+        $request->validate([
+            'start' => 'required|date',
+            'end' => 'required|date|after_or_equal:start',
+        ]);
+        $startDate = $request->start;
+        $endDate = $request->end;
+        $users = User::where('status',false)->whereBetween('created_at', [$startDate, $endDate])->get();
+        // dd($users);
+        return view('manage-admin.manage-admin', ['users' => $users, 'start' => $startDate, 'end' => $endDate]);
+    }
+
 }
