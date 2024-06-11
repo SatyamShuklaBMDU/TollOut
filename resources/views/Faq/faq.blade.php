@@ -98,6 +98,15 @@
                                         </div>
                                     </form>
                                 </div>
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                                 <!-- Table -->
                                 <div class="card">
                                     <div class="card-body">
@@ -139,7 +148,7 @@
                                                             <td>
                                                                 <div class="d-flex justify-content-center">
                                                                     <a href="#"
-                                                                        class="btn btn-primary shadow btn-xs sharp me-1 editBtn"
+                                                                        class="btn btn-primary shadow btn-xs sharp me-1 editBtn"style="background-color:#033496;border:none";
                                                                         data-faq-id="{{ $faq->id }}"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#basicModal"><i
@@ -172,25 +181,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form class="" id="addFAQForm">
+                    <form action="{{ route('faqs-store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
                         <div class="mb-3">
                             <label for="faqTitle" class="form-label text-dark fw-bold h5">FAQ Title</label>
-                            <input type="text" class="form-control border-dark" id="faqTitle"
+                            <input type="text" name="title" class="form-control border-dark" id="faqTitle"
                                 placeholder="Enter FAQ Title">
                             <small class="text-primary h6">(e.g., How to use our product)</small>
                         </div>
                         <div class="mb-3">
                             <label for="faqDescription" class="form-label text-dark fw-bold h5">FAQ Description</label>
-                            <textarea class="form-control border-dark" id="faqDescription" rows="3" placeholder="Enter FAQ Description"></textarea>
+                            <textarea class="form-control border-dark" id="faqDescription" rows="3" placeholder="Enter FAQ Description" name="description"></textarea>
                             <small class="text-primary h6">(Provide a brief description of the FAQ)</small>
+                        </div>  
+                        
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-danger light h6" style="background-color:#033496;border:none" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" id="saveFAQBtn" class="btn btn-primary h6" style="background-color:#f66f01;border:none">Save</button>
                         </div>
-
-
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light h6" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="saveFAQBtn" class="btn btn-primary h6">Save changes</button>
                 </div>
             </div>
         </div>
@@ -221,8 +230,8 @@
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger light h6" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="updateFAQBtn" class="btn btn-primary h6">Save changes</button>
+                    <button type="button" class="btn btn-danger light h6" data-bs-dismiss="modal" style="background-color:#033496;border:none">Close</button>
+                    <button type="button" id="updateFAQBtn" class="btn btn-primary h6"style="background-color:#f66f01;border:none">Save Changes</button>
                 </div>
             </div>
         </div>
@@ -245,28 +254,11 @@
         });
     </script>
     <script>
-        document.getElementById("saveFAQBtn").addEventListener("click", function() {
-            var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var title = document.getElementById("faqTitle").value;
-            var description = document.getElementById("faqDescription").value;
-            var xhr = new XMLHttpRequest();
-            xhr.open("POST", "{{ route('faqs-store') }}", true);
-            xhr.setRequestHeader("Content-Type", "application/json");
-            xhr.setRequestHeader("X-CSRF-Token", csrfToken);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    $('#basicModal2').modal('hide');
-                    location.reload();
-                }
-            };
-            var data = JSON.stringify({
-                title: title,
-                description: description,
-
-            });
-            xhr.send(data);
-        });
+        @if (session('success'))
+            toastr.success("{{ session('success') }}");
+        @endif
     </script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.statusSwitch').forEach(function(switchButton) {
@@ -352,8 +344,13 @@
             xhr.setRequestHeader("X-CSRF-Token", csrfToken);
             xhr.onreadystatechange = function() {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    // var response = JSON.parse(xhr.responseText);
+                    //     toastr.success(response.success);
                     $('#editModal').modal('hide');
                     location.reload();
+                    // setTimeout(function() {
+                    //         location.reload();
+                    //     }, 2000); 
                 }
             };
             var data = JSON.stringify({

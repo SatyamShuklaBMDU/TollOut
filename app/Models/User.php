@@ -65,17 +65,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function hasPermission($permission)
+    // public function hasPermission($permission)
+    // {
+    //     try {
+    //         $userPermissions = json_decode($this->permission, true);
+    //         if (!is_array($userPermissions)) {
+    //             throw new \Exception('User permissions are not properly initialized');
+    //         }
+    //         return in_array($permission, $userPermissions);
+    //     } catch (\Throwable $th) {
+    //         Log::error($th->getMessage());
+    //         return false;
+    //     }
+    // }
+    public function customer()
     {
-        try {
-            $userPermissions = json_decode($this->permission, true);
-            if (!is_array($userPermissions)) {
-                throw new \Exception('User permissions are not properly initialized');
-            }
-            return in_array($permission, $userPermissions);
-        } catch (\Throwable $th) {
-            Log::error($th->getMessage());
-            return false;
-        }
+        return $this->belongsTo(role::class,'role','id');
     }
 }

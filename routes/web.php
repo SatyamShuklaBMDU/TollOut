@@ -4,6 +4,7 @@ use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ManageAdminController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
 use Illuminate\Support\Facades\Route;
@@ -59,6 +60,14 @@ route::middleware('auth')->group(function () {
     route::delete('/delete-admin/{id}',[ManageAdminController::class, 'delete'])->name('delete-admin');
     Route::post('filter-admin', [ManageAdminController::class, 'filterdata'])->name('filter-admin');
     });
+    //manage roles
+    route::get('/add-role',[RoleController::class, 'index'])->name('add-role');
+    route::post('/role-store',[RoleController::class, 'store'])->name('role-store');
+    route::get('/role',[RoleController::class, 'roles'])->name('all-role');
+    route::get('/edit/role/{id}',[RoleController::class, 'edit'])->name('edit-role');
+    route::post('/edit/role-store/{id}',[RoleController::class, 'editrolestore'])->name('edit-role-store');
+    route::delete('/delete-role/{id}',[RoleController::class, 'delete'])->name('delete-role');
+    Route::post('filter-role', [RoleController::class, 'filterdata'])->name('filter-role');
 
 });
 

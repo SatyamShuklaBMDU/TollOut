@@ -23,13 +23,13 @@ class FeedbackController extends Controller
             'reply' => 'required|string'
         ]);
         if ($validator->fails()) {
-            return response()->json(['status' => false, 'message' => $validator->errors()->first()]);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
         $feedback_reply->reply = $request->reply;
         // $feedback->reply_person_id = auth()->user()->id;
         $feedback_reply->reply_date = now();
         $feedback_reply->save();
-        return redirect('/feedback')->with('successs', 'Reply Successfully!');
+        return redirect('/feedback')->with('success', 'Reply Successfully!');
     }
 
     public function delete($id)

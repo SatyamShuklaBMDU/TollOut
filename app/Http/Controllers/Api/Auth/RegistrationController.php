@@ -78,12 +78,6 @@ class RegistrationController extends Controller
             $login = Auth::user();
             // dd($login);
             $customer = customer::findOrFail($login->id);
-            // dd($customer);
-
-            // if($request-()){
-            //     return response()->json(['status'=> true,'data'=> $customer],200);
-            // }
-
 
             $validator = Validator::make($request->all(),[
                 'name' => 'string',
@@ -139,10 +133,24 @@ class RegistrationController extends Controller
             'password' => $request->password ? $request->password : hash::make($request->new_password),
         ];
         $customer->update($data);
-        return response()->json(['status'=>true,'message' => 'Password Updated Successfully', 'data' => $customer]);
+        return response()->json(['status'=>true,'message' => 'Password Updated Successfully', 'data' => $customer],200);
         }
         catch(\Exception $e){
             return response()->json(['status'=> false,'message'=> $e->getMessage()],500);
         }
+    }
+    public function profileinfo(Request $request){
+        try{
+            $login = Auth::user();
+            // dd($login);
+            $customer = customer::findOrFail($login->id);
+            if($customer){
+            return response()->json(['status'=>true,'data' => $customer],200);
+            }
+        }
+        catch(\Exception $e){
+            return response()->json(['status'=> false,'message'=> $e->getMessage()],500);
+        }
+       
     }
 }

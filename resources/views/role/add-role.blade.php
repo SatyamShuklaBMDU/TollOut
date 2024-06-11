@@ -38,11 +38,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>Add Admin's</h1>
+        <h1>Add Role's</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">Add Admin's</li>
+                <li class="breadcrumb-item active">Add Role's</li>
             </ol>
         </nav>
     </div>
@@ -72,46 +72,18 @@
                                             </div>
                                         </div>  --}}
                                         <div class="col-md-12">
-                                            <form class="notification-form shadow rounded p-4" action="{{ route('admin-store') }}" method="post">
-                                                <div class="form-group my-1">
-                                                    <label for="exampleInputEmail1">User Name</label>
-                                                    <input type="text" name="name" value="{{ old('name') }}" class="form-control" style="font-size: 15px;"
-                                                        id="exampleInputsubject"
-                                                        placeholder="Please Enter Your Name">
-                                                    @if ($errors->has('name'))
-                                                        <span class="help-block">{{ $errors->first('name') }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group my-1">
-                                                    <label for="exampleInputEmail1">Email</label>
-                                                    <input type="email" name="email" value="{{ old('email') }}" class="form-control" style="font-size: 15px;"
-                                                        id="exampleInputsubject" aria-describedby="textHelp"
-                                                        placeholder="Please Enter Your Email">
-                                                    @if ($errors->has('email'))
-                                                        <script type="text/javascript">
-                                                            alert(`{{ $errors->first('email') }}`)
-                                                        </script>
-                                                    @endif
-                                                </div>
+                                            <form class="notification-form shadow rounded p-4" action="{{ route('role-store') }}" method="post">
                                                 @csrf
-                                                <div class="form-group my-1">
-                                                    <label for="exampleInputEmail1">Create Password</label>
-                                                    <input type="password" name="password" class="form-control" id="password-field" style="font-size: 15px;"
-                                                        aria-describedby="textHelp" placeholder="*****">
-                                                    <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password pe-4"></span>
-                                                    @if ($errors->has('password'))
-                                                        <span class="help-block">{{ $errors->first('password') }}</span>
-                                                    @endif
-                                                </div>
                                                 <div class="form-group my-1">
                                                     <label for="exampleInputEmail1">Role</label>
                                                     <input type="text" name="role" class="form-control" id="exampleInputsubject" style="font-size: 15px;"
                                                         aria-describedby="textHelp" placeholder="Role" value="{{ old('email') }}">
+                                                        <span style="color:#f66f01">(e.g., Manager,Tester)</span>
                                                     @if ($errors->has('role'))
                                                         <span class="help-block">{{ $errors->first('role') }}</span>
                                                     @endif
                                                 </div>
-                                                <h3 class="my-3">Assign Modules</h3>
+                                                <h3 class="my-3">Assign Role</h3>
                                                 
                                                     <div class="wrapper ms-1">
                                                         <div class="row">

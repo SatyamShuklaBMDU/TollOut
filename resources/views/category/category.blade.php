@@ -185,8 +185,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="sendReply">Send</button>
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal"style="background-color:#033496;border:none">Close</button>
+                        <button type="submit" class="btn btn-primary" id="sendReply"style="background-color:#f66f01;border:none">Send</button>
                     </div>
                 </form>
             </div>
@@ -260,14 +260,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to delete Category');
+                        throw new Error('Failed to delete Feedback');
                     }
                     return response.json();
                 })
                 .then(data => {
                     swal.fire({
                         title: 'Deleted!',
-                        text: 'The Category has been deleted.',
+                        text: 'The Feedback has been deleted.',
                         icon: 'success',
                         timer: 2000
                     }).then(() => {
@@ -278,7 +278,7 @@
                     console.error('Error:', error);
                     swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete Category.',
+                        text: 'Failed to delete Feedback.',
                         icon: 'error'
                     });
                 });

@@ -11,6 +11,7 @@ Route::post('/login', [RegistrationController::class, 'login']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [RegistrationController::class, 'logout']);
     Route::post('/password-reset', [RegistrationController::class,'reset']);
+    Route::post('/profile-info',[RegistrationController::class,'profileinfo']);
     Route::post('/update',[RegistrationController::class,'update']);
     // Faq API
     Route::get('/get-faq', [FaqController::class, 'index']);

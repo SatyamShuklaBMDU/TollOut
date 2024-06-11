@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Faq;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class FaqController extends Controller
 {
@@ -14,15 +15,18 @@ class FaqController extends Controller
     }
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $validate = Validator::make($request->all(), [
             'title' => 'required|max:255',
             'description' => 'required',
         ]);
+        if($validate->fails()){
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
         Faq::create([
             'question' => $request->title,
             'answer' => $request->description,
         ]);
-        return response()->json(['success' => 'FAQ created successfully']);
+        return redirect('faq-index')->with('success','FAQ Added Successfully');
     }
     public function updateStatus(Request $request)
     {
@@ -45,10 +49,10 @@ class FaqController extends Controller
             'description' => 'required|string',
         ]);
         $faq = Faq::findOrFail($request->faq_id);
-        $faq->title = $request->input('title');
-        $faq->description = $request->input('description');
+        $faq->question = $request->input('title');
+        $faq->answer = $request->input('description');
         $faq->save();
-        return response()->json(['success' => true]);
+        return response()->json(['success' => "staus"]);
     }
     public function delete($id)
     {

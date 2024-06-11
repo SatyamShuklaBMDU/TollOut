@@ -96,7 +96,7 @@
                                                             </td>
                                                             <td style="text-align: center;">
                                                                 <div class="d-flex justify-content-center">
-                                                                    <a class="btn btn-primary shadow btn-xs sharp me-1 edit-notification"
+                                                                    <a style="background-color:#033496;border:none" class="btn btn-primary shadow btn-xs sharp me-1 edit-notification"
                                                                         data-id="{{ $notification->id }}"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#editNotificationModal"><i
@@ -148,8 +148,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal"style="background-color:#033496;border:none">Close</button>
+                        <button type="submit" class="btn btn-primary"style="background-color:#f66f01;border:none">Submit</button>
                     </div>
                 </form>
             </div>
@@ -187,8 +187,8 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-danger light" data-bs-dismiss="modal"style="background-color:#033496;border:none">Close</button>
+                        <button type="submit" class="btn btn-primary" style="background-color:#f66f01;border:none">Save changes</button>
                     </div>
                 </form>
             </div>

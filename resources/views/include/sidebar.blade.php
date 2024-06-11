@@ -33,14 +33,14 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         </li><!-- End F.A.Q Page Nav -->
         @endif
 
-        {{-- @if($hasAllPermissions || in_array('notificationmanagement', $jsondecodepermission))
+        @if($hasAllPermissions || in_array('notificationmanagement', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed {{ request()->routeIs('show-notification') ? 'active' : '' }}" href="{{ route('show-notification') }}">
                 <i class="bi bi-bell"></i>
                 <span>Notifications</span>
             </a>
         </li>
-        @endif --}}
+        @endif
         <!-- End Notifications Page Nav -->
 
         @if($hasAllPermissions || in_array('categorymanagement', $jsondecodepermission))
@@ -60,7 +60,40 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
             </a>
         </li><!-- End Register Page Nav -->
         @endif
-
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-menu-button-wide"></i><span>Manage Roles</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="{{ route('all-role') }}">
+                  <i class="bi bi-circle"></i><span>All Roles</span>
+                </a>
+              </li>
+              <li>
+                <a href="{{ route('add-role') }}">
+                  <i class="bi bi-circle"></i><span>Add Roles</span>
+                </a>
+              </li>
+            </ul>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+              <i class="bi bi-journal-text"></i><span>Manage Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+              <li>
+                <a href="forms-elements.html">
+                  <i class="bi bi-circle"></i><span>All Admin</span>
+                </a>
+              </li>
+              <li>
+                <a href="forms-layouts.html">
+                  <i class="bi bi-circle"></i><span>Add Admin</span>
+                </a>
+              </li>
+            </ul>
+          </li>
     </ul>
 
 </aside><!-- End Sidebar-->

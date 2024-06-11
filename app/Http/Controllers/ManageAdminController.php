@@ -9,7 +9,7 @@ use Hash;
 class ManageAdminController extends Controller
 {
     public function index(){
-        $users = User::where('status',false)->get();
+        $users = User::where('status',false)->latest()->get();
         return view('manage-admin.manage-admin',compact('users'));
     }
     public function addadmin(){
@@ -37,7 +37,8 @@ class ManageAdminController extends Controller
         return redirect()->route('manage-admin')->with('success', 'Admin Added Successfully');
     }
     public function editadmin($id){
-        $users = User::findOrFail($id);
+        $did = decrypt($id);
+        $users = User::findOrFail($did);
         $permission = json_decode($users->permissions,true);
         return view('manage-admin.edit-admin',compact('users','permission'));
     }
