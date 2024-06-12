@@ -116,7 +116,7 @@
                                             <thead>
                                                 <tr class="text-center">
                                                     <th>S no.</th>    
-                                                    <th>Registration Date</th>
+                                                    <th>Created Date</th>
                                                     <th>Name</th>
                                                     <th>Email</th>
                                                     <th>Role </th>  
@@ -127,14 +127,16 @@
                                                 @foreach ($users as $user)
                                                     <tr class="odd" data-user-id="{{ $user->id }}">
                                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->created_at) }}
+                                                        <td class="text-center">
+                                                        {{ $user->created_at->timezone('Asia/Kolkata')->format('d F Y h:i A') }}
+                                            {{-- {{ $user->created_at->timezone('Asia/Kolkata')->format('h:i A') }} --}}
                                                         </td>
                                                         <td class="sorting_1 text-center">{{ $user->name }} </td>
                                                         <td class="text-center">{{ $user->email }}</td>
                                                         <td class="text-center">
                                                             <select class="form-select ChangeRole text-center" data-user-id="{{ $user->id }}"
                                                                 aria-label="Default select example">
-                                                                <option selected>Choose Role</option>
+                                                                <option selected disabled>--Choose Role--</option>
                                                                 @foreach ($roles as $role)
                                                                     <option value="{{ $role->id }}"
                                                                         {{ $user->role_id == $role->id ? 'selected' : '' }}>

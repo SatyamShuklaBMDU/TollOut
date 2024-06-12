@@ -12,7 +12,7 @@ class FeedbackController extends Controller
     public function index(){
        
         $categories = feedback::latest()->get();
-        return view("category.category",compact("categories"));
+        return view("feedback.feedback",compact("categories"));
     }
     public function reply(Request $request)
     {
@@ -48,6 +48,6 @@ class FeedbackController extends Controller
         $startDate = $request->start;
         $endDate = $request->end;
         $categories = feedback::whereBetween('created_at', [$startDate, $endDate])->get();
-        return view('category.category', ['categories' => $categories, 'start' => $startDate, 'end' => $endDate]);
+        return view('feedback.feedback', ['categories' => $categories, 'start' => $startDate, 'end' => $endDate]);
     }    
 }

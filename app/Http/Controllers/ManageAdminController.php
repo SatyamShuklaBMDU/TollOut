@@ -81,9 +81,10 @@ class ManageAdminController extends Controller
         ]);
         $startDate = $request->start;
         $endDate = $request->end;
+        $roles = Role::where('role','!=','Super admin')->get();
         $users = User::where('status',false)->whereBetween('created_at', [$startDate, $endDate])->get();
         // dd($users);
-        return view('manage-admin.manage-admin', ['users' => $users, 'start' => $startDate, 'end' => $endDate]);
+        return view('manage-admin.manage-admin', ['users' => $users, 'start' => $startDate, 'end' => $endDate,'roles'=>$roles]);
     }
     public function updateUserRole(Request $request)
     {

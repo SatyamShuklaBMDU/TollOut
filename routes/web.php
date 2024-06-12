@@ -17,7 +17,7 @@ Route::get('/', function () {
 route::middleware('auth')->group(function () {
     Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashborad');
     route::get('/logout', [HomeController::class, 'logout'])->name('logout');
-    route::middleware(['auth','rolecheck:usermanagement'])->group(function(){
+    route::middleware(['auth','rolecheck:User'])->group(function(){
     route::get('/users', [UserController::class, 'users'])->name('users');
     Route::post('/user/filter', [UserController::class, 'filter'])->name('user-filters');
     Route::get('/user/show', [UserController::class, 'show'])->name('user-show');
@@ -25,7 +25,7 @@ route::middleware('auth')->group(function () {
     Route::post('/change-user-status',[UserController::class,'changeStatus'])->name('change-user-status');
     });
     // Faq Route
-    route::middleware(['auth','rolecheck:faqmanagement'])->group(function(){
+    route::middleware(['auth','rolecheck:Faq'])->group(function(){
     Route::get('faq-index', [FaqController::class, 'index'])->name('faq-index');
     Route::post('faq-store', [FaqController::class, 'store'])->name('faqs-store');
     Route::get('/faq/edit-detail/{id}', [FaqController::class, 'edit'])->name('faq-details');
@@ -35,7 +35,7 @@ route::middleware('auth')->group(function () {
     Route::post('filter-faq', [FaqController::class, 'filterdata'])->name('filter-faq');
     });
     // Notification Route
-    route::middleware(['auth','rolecheck:notificationmanagement'])->group(function(){
+    route::middleware(['auth','rolecheck:Notification'])->group(function(){
     Route::get('show-notification', [NotificationController::class, 'index'])->name('show-notification');
     Route::post('/notifications', [NotificationController::class, 'store'])->name('notifications.store');
     Route::post('/notifications-update', [NotificationController::class, 'update'])->name('notifications.update');
@@ -44,7 +44,7 @@ route::middleware('auth')->group(function () {
     Route::post('filter-notification', [NotificationController::class, 'filterdata'])->name('filter-notification');
     });
     // feedback Route
-    route::middleware(['auth','rolecheck:feedbackmanagement'])->group(function(){
+    route::middleware(['auth','rolecheck:Feedback'])->group(function(){
     Route::get('/feedback', [FeedbackController::class, 'index'])->name('show-category');
     Route::delete('/feedback/{category}', [FeedbackController::class, 'delete'])->name('category.destroy');
     Route::post('filter-feedback', [FeedbackController::class, 'filterdata'])->name('filter-category');

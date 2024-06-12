@@ -8,7 +8,6 @@
             border-radius: 8px !important;
             box-shadow: 2px 10px 9px 0px #00000063 !important
         }
-
         .dataTables_wrapper .dataTables_filter input {
             border-radius: 12px !important;
         }
@@ -99,7 +98,7 @@
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>S No.</th>
-                                                        <th>Creation Date</th>
+                                                        <th>Join Date</th>
                                                         <th>CIN No.</th>
                                                         <th>Profile</th>
                                                         <th>Name</th>
@@ -192,6 +191,7 @@
     }, 'End date must be greater than or equal to the start date.');
 
     $('#filterForm').validate({
+        errorClass: "text-danger", 
         rules: {
             start_date: {
                 required: true,

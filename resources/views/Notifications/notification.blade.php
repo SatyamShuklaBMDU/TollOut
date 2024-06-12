@@ -70,7 +70,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">Sr NO.</th>
-                                                        <th class="text-center">Creating Date</th>
+                                                        <th class="text-center">Created Date</th>
                                                         <th class="text-center">Title</th>
                                                         <th class="text-center">Messgae </th>
                                                         <th class="text-center">Image</th>
@@ -82,7 +82,7 @@
                                                         <tr>
                                                             <td class="text-center">{{ $loop->iteration }}</td>
                                                             <td class="text-center">
-                                                                {{ $notification->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
+                                                                {{ $notification->created_at->timezone('Asia/Kolkata')->format('d F Y h:i A') }}
                                                             </td>
                                                             <td class="text-center">{{ $notification->title }}</td>
                                                             <td class="text-center">{{ $notification->description }}

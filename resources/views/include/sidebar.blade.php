@@ -15,7 +15,7 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
             </a>
         </li><!-- End Dashboard Nav -->
 
-        @if($hasAllPermissions || in_array('usermanagement', $jsondecodepermission))
+        @if($hasAllPermissions || in_array('User', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('users') }}">
                 <i class="bi bi-person"></i>
@@ -24,7 +24,7 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         </li><!-- End Profile Page Nav -->
         @endif
 
-        @if($hasAllPermissions || in_array('faqmanagement', $jsondecodepermission))
+        @if($hasAllPermissions || in_array('Faq', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('faq-index') }}">
                 <i class="bi bi-question-circle"></i>
@@ -33,7 +33,7 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         </li><!-- End F.A.Q Page Nav -->
         @endif
 
-        @if($hasAllPermissions || in_array('notificationmanagement', $jsondecodepermission))
+        @if($hasAllPermissions || in_array('Notification', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed {{ request()->routeIs('show-notification') ? 'active' : '' }}" href="{{ route('show-notification') }}">
                 <i class="bi bi-bell"></i>
@@ -43,7 +43,7 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         @endif
         <!-- End Notifications Page Nav -->
 
-        @if($hasAllPermissions || in_array('feedbackmanagement', $jsondecodepermission))
+        @if($hasAllPermissions || in_array('Feedback', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('show-category') }}">
                 <i class="bi bi-envelope"></i>

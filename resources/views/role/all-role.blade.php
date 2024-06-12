@@ -126,7 +126,7 @@
                                                 @foreach ($users as $user)
                                                     <tr class="odd" data-user-id="{{ $user->id }}">
                                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->created_at) }}</td>
+                                                        <td class="text-center">{{ $user->created_at->timezone('Asia/Kolkata')->format('d F Y h:i A') }}</td>
                                                         <td class="text-center">{{ $user->role }}</td>
                                                         @php
                                                             $userpermission = json_decode($user->permissions);

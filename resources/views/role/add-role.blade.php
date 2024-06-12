@@ -88,7 +88,7 @@
                                                     <div class="wrapper ms-1">
                                                         <div class="row">
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="usermanagement"
+                                                                <input class="form-check-input" type="checkbox" value="User"
                                                                     id="usermanagement" name="permission[]">
                                                                 <label class="form-check-label" for="usermanagement">
                                                                      Users Management
@@ -96,21 +96,21 @@
                                                             </div>
                                                             <!-- <div class="col-md-4"> -->
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="faqmanagement" id="faqmanagement"
+                                                                <input class="form-check-input" type="checkbox" value="Faq" id="faqmanagement"
                                                                     name="permission[]">
                                                                 <label class="form-check-label" for="faqmanagement">
                                                                     F.A.Q Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3" style="">
-                                                                <input class="form-check-input" type="checkbox" value="notificationmanagement" id="notificationmanagement"
+                                                                <input class="form-check-input" type="checkbox" value="Notification" id="notificationmanagement"
                                                                     name="permission[]">
                                                                 <label class="form-check-label" for="notificationmanagement">
                                                                     Notification Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="feedbackmanagement" id="feedbackmanagement"
+                                                                <input class="form-check-input" type="checkbox" value="Feedback" id="feedbackmanagement"
                                                                     name="permission[]">
                                                                 <label class="form-check-label" for="feedbackmanagement">
                                                                     Feedback Management

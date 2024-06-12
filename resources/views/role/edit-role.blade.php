@@ -89,8 +89,8 @@
                                                     <div class="wrapper ms-1">
                                                         <div class="row">
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="usermanagement"
-                                                                    id="usermanagement" name="permission[]"{{ in_array('usermanagement', $permission) ? 'checked' : '' }} />
+                                                                <input class="form-check-input" type="checkbox" value="User"
+                                                                    id="usermanagement" name="permission[]"{{ in_array('User', $permission) ? 'checked' : '' }} />
                                                                 <label class="form-check-label" for="usermanagement">
                                                                      Users Management
                                                                 </label>
@@ -98,24 +98,24 @@
                                                             <!-- <div class="col-md-4"> -->
                                                                 
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="faqmanagement" id="faqmanagement"
-                                                                    name="permission[]"{{ in_array('faqmanagement', $permission) ? 'checked' : '' }}>
+                                                                <input class="form-check-input" type="checkbox" value="Faq" id="faqmanagement"
+                                                                    name="permission[]"{{ in_array('Faq', $permission) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="faqmanagement">
                                                                     F.A.Q Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3" style="">
-                                                                <input class="form-check-input" type="checkbox" value="notificationmanagement" id="notificationmanagement"
-                                                                    name="permission[]"{{ in_array('notificationmanagement', $permission) ? 'checked' : '' }}>
+                                                                <input class="form-check-input" type="checkbox" value="Notification" id="notificationmanagement"
+                                                                    name="permission[]"{{ in_array('Notification', $permission) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="notificationmanagement">
                                                                     Notification Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="feedbackmanagement" id="feedbackmanagement"
-                                                                    name="permission[]"{{ in_array('feedbackmanagement', $permission) ? 'checked' : '' }}>
+                                                                <input class="form-check-input" type="checkbox" value="Feedback" id="feedbackmanagement"
+                                                                    name="permission[]"{{ in_array('Feedback', $permission) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="feedbackmanagement">
-                                                                    Catogry Management
+                                                                    Feedback Management
                                                                 </label>
                                                             </div>
                                                       

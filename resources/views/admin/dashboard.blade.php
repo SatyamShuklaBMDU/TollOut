@@ -30,7 +30,7 @@
           <div class="row">
 
             <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">
@@ -65,7 +65,7 @@
             </div><!-- End Sales Card -->
 
             <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">
@@ -100,7 +100,7 @@
             </div><!-- End Revenue Card -->
 
             <!-- Customers Card -->
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">
@@ -134,7 +134,7 @@
               </div>
             </div><!-- End Customers Card -->
 
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">
@@ -168,7 +168,7 @@
               </div>
             </div>
 
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">
@@ -203,7 +203,7 @@
             </div>
 
 
-            <div class="col-xxl-4 col-md-6">
+            <div class="col-xxl-4 col-md-4">
               <div class="card info-card sales-card">
 
                 {{-- <div class="filter">

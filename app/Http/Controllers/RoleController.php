@@ -66,10 +66,11 @@ class RoleController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
         ]);
+        $roles = Role::where('role','!=','Super admin')->get();
         $startDate = $request->start;
         $endDate = $request->end;
         $users = Role::whereBetween('created_at', [$startDate, $endDate])->get();
         // dd($users);
-        return view('manage-admin.manage-admin', ['users' => $users, 'start' => $startDate, 'end' => $endDate]);
+        return view('manage-admin.manage-admin', ['users' => $users, 'start' => $startDate, 'end' => $endDate,'roles'=>$roles]);
     }
 }

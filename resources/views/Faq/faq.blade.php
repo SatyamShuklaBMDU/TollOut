@@ -115,7 +115,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">Sr NO.</th>
-                                                        <th class="text-center">Creation Date</th>
+                                                        <th class="text-center">Created Date</th>
                                                         {{-- <th>Update Date, Time</th> --}}
                                                         <th class="text-center">FAQ Title</th>
                                                         <th class="text-center">FAQ Description</th>

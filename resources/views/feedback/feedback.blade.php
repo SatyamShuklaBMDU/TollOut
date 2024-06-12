@@ -116,7 +116,7 @@
                                                 <thead>
                                                     <tr class="text-center">
                                                         <th>S No.</th>
-                                                        <th>Date</th>
+                                                        <th>Created Date</th>
                                                         <th>Customer Id</th>
                                                         <th>Name</th>
                                                         <th>Subject</th>
@@ -137,7 +137,7 @@
                                                             <td style="text-align: center;">{{ $category->customer->name }}</td>
                                                             <td style="text-align: center;">{{ $category->subject }}</td>
                                                             <td style="text-align: center;">{{ $category->message }}</td>
-                                                            <td style="text-align: center;">{{ $category->reply_date }}</td>
+                                                            <td style="text-align: center;">{{ $category->reply_date->format('d F Y h:i A') }}</td>
                                                             <td style="text-align: center;">{{ $category->reply }}</td>
                                                             <td style="text-align: center;">
                                                                 <div class="d-flex justify-content-center">
