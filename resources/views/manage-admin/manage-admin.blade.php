@@ -67,11 +67,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Admin's</h1>
+        <h1>All Admin</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Admin's</li>
+                <li class="breadcrumb-item active">All Admin</li>
             </ol>
         </nav>
     </div>
@@ -115,17 +115,11 @@
                                         <table id="customerTable" class="display nowrap" style="width:100%">
                                             <thead>
                                                 <tr class="text-center">
-                                                    <th>
-                                                        S no.</th>
-                                                    <th>
-                                                        Registration Date
-                                                    </th>
-                                                    <th>
-                                                        Name
-                                                    </th>
-                                                    <th> Email</th>
-                                                    <th> User Role </th>
-                                                    <th style="width:100px !important"> User Permission </th>
+                                                    <th>S no.</th>    
+                                                    <th>Registration Date</th>
+                                                    <th>Name</th>
+                                                    <th>Email</th>
+                                                    <th>Role </th>  
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -133,19 +127,21 @@
                                                 @foreach ($users as $user)
                                                     <tr class="odd" data-user-id="{{ $user->id }}">
                                                         <td class="text-center">{{ $loop->iteration }}</td>
-                                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->created_at)->format('d M,Y') }}
+                                                        <td class="text-center">{{ \Carbon\Carbon::parse($user->created_at) }}
                                                         </td>
                                                         <td class="sorting_1 text-center">{{ $user->name }} </td>
                                                         <td class="text-center">{{ $user->email }}</td>
-                                                        <td class="text-center">{{ $user->role }}</td>
-                                                        @php
-                                                            $userpermission = json_decode($user->permissions);
-                                                            $allpermission = '';
-                                                            if (!is_null($userpermission) && is_array($userpermission)) {
-                                                                $allpermission = implode(',', $userpermission);
-                                                            }
-                                                        @endphp
-                                                        <td style="width:100px !important">{{ $allpermission }}</td>
+                                                        <td class="text-center">
+                                                            <select class="form-select ChangeRole text-center" data-user-id="{{ $user->id }}"
+                                                                aria-label="Default select example">
+                                                                <option selected>Choose Role</option>
+                                                                @foreach ($roles as $role)
+                                                                    <option value="{{ $role->id }}"
+                                                                        {{ $user->role_id == $role->id ? 'selected' : '' }}>
+                                                                        {{ $role->role }}</option>
+                                                                @endforeach
+                                                            </select>
+                                                        </td>
                                                         <td style="text-align: center;">
                                                             <div class="d-flex justify-content-center">
                                                                 <a href="{{ route('edit-admin',encrypt($user->id))}}" class="btn btn-primary shadow btn-xs sharp me-1 edit-category"style="background-color:#033496;border:none"><i class="fas fa-pencil-alt"></i></a>
@@ -238,14 +234,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to delete Notification');
+                        throw new Error('Failed to delete Admin');
                     }
                     return response.json();
                 })
                 .then(data => {
                     swal.fire({
                         title: 'Deleted!',
-                        text: 'The Notification has been deleted.',
+                        text: 'The Admin has been deleted.',
                         icon: 'success',
                         timer: 2000
                     }).then(() => {
@@ -256,10 +252,53 @@
                     console.error('Error:', error);
                     swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete Notification.',
+                        text: 'Failed to delete Admin.',
                         icon: 'error'
                     });
                 });
         }
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.ChangeRole').forEach(select => {
+                select.addEventListener('change', function() {
+                    const userId = this.dataset.userId;
+                    const roleId = this.value;
+                    fetch('{{ url('change-role') }}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': '{{ csrf_token() }}', // Ensure CSRF token is correctly passed
+                                'Accept': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                user_id: userId,
+                                role_id: roleId
+                            })
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Updated!',
+                                text: 'User role has been updated successfully.'
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            });
+                        });
+                });
+            });
+        });
     </script>
 @endsection

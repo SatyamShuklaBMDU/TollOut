@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CheeckUserPermissions
+class UserRoleCheck
 {
     /**
      * Handle an incoming request.
@@ -15,8 +15,10 @@ class CheeckUserPermissions
      */
     public function handle(Request $request, Closure $next, ...$permissions): Response
     {
+        
         $arraytostring = implode($permissions);
-        $decode = $request->user()->permissions;
+
+        $decode = $request->user()->Role->permissions;
         $jsondecode = json_decode($decode, true);
         if (in_array('All', $jsondecode) == true) {
             return $next($request);

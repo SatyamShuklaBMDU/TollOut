@@ -38,11 +38,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>Edit Role's</h1>
+        <h1>Edit Role</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">Edit Role's</li>
+                <li class="breadcrumb-item active">Edit Role</li>
             </ol>
         </nav>
     </div>
@@ -112,9 +112,9 @@
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="categorymanagement" id="categorymanagement"
-                                                                    name="permission[]"{{ in_array('categorymanagement', $permission) ? 'checked' : '' }}>
-                                                                <label class="form-check-label" for="categorymanagement">
+                                                                <input class="form-check-input" type="checkbox" value="feedbackmanagement" id="feedbackmanagement"
+                                                                    name="permission[]"{{ in_array('feedbackmanagement', $permission) ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="feedbackmanagement">
                                                                     Catogry Management
                                                                 </label>
                                                             </div>

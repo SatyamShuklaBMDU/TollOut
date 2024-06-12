@@ -20,7 +20,7 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Notifications</h1>
+        <h1>All Notification</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>

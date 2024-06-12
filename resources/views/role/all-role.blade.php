@@ -67,11 +67,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Role's</h1>
+        <h1>All Role</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Role's</li>
+                <li class="breadcrumb-item active">All Role</li>
             </ol>
         </nav>
     </div>
@@ -192,7 +192,6 @@
             toastr.success("{{ session('success') }}");
         @endif
     </script>
-  
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.deleteBtn').forEach(function(deleteButton) {

@@ -66,11 +66,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Feedbacks</h1>
+        <h1>All Feedback</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Feedbacks</li>
+                <li class="breadcrumb-item active">All Feedback</li>
             </ol>
         </nav>
     </div>

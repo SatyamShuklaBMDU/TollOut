@@ -12,8 +12,10 @@ class RoleController extends Controller
     }
     public function store(Request $request){
         $request->validate([
-            'role' => 'required|string',
+            'role' => 'required|string|unique:roles,role',
             'permission' => 'required',
+        ], [
+            'role.unique' => 'This role is already Created.',
         ]);
 
         $user = new Role();
@@ -23,7 +25,7 @@ class RoleController extends Controller
         return redirect()->route('all-role')->with('success', 'Role Added Successfully');
     }
     public function roles(){
-        $users = Role::latest()->get();
+        $users = Role::where('status','1')->latest()->get();
         return view('role.all-role',compact('users'));
     }
     public function edit($id){
@@ -37,8 +39,10 @@ class RoleController extends Controller
         $did = decrypt($id);
         $user = Role::findOrFail($did);
         $request->validate([
-            'role' => 'required',
+            'role' => 'required|string|unique:roles,role,'.$user->id,
             'permission' => 'required',
+        ], [
+            'role.unique' => 'This role is already Created.',
         ]);
         $user->role = $request->role ? $request->role :$user->role;
         $user->permissions = json_encode($request->permission ? $request->permission :$user->permissions);
@@ -46,9 +50,10 @@ class RoleController extends Controller
         return redirect()->route('all-role')->with('success', 'Role Updated Successfully');
     }
     public function delete($id){
+        
         try{
-        $user = Role::findOrFail($id)->first();
-     
+             
+        $user = Role::findOrFail($id);
         $user->delete();
         return response()->json(['success' => true]);
         } catch (\Exception $e) {

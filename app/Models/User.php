@@ -78,8 +78,8 @@ class User extends Authenticatable
     //         return false;
     //     }
     // }
-    public function customer()
+    public function Role()
     {
-        return $this->belongsTo(role::class,'role','id');
+        return $this->belongsTo(Role::class,'role_id','id');
     }
 }
