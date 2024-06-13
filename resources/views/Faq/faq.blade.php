@@ -82,7 +82,7 @@
                                                     margin-top: 20px !important;">
                             <div class="col-lg-12 ">
                                 <div class="row mb" style="margin-bottom: 30px; margin-left: 5px;">
-                                    <form action="{{ route('filter-faq') }}" method="post">
+                                    <form action="{{ route('filter-faq') }}" method="POST">
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')

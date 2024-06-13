@@ -55,6 +55,15 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
 
         @if($hasAllPermissions)
         <li class="nav-item">
+          <a class="nav-link collapsed" href="{{ route('wishlist') }}">
+              <i class="bi bi-envelope"></i>
+              <span>Wish List</span>
+          </a>
+        </li>
+        @endif
+
+        @if($hasAllPermissions)
+        <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
               <i class="bi bi-menu-button-wide"></i><span>Manage Roles</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>

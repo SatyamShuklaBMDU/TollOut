@@ -7,6 +7,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\wishlistController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -71,7 +72,9 @@ route::middleware('auth')->group(function () {
     route::delete('/delete-role/{id}',[RoleController::class, 'delete'])->name('delete-role');
     Route::post('filter-role', [RoleController::class, 'filterdata'])->name('filter-role');
     });
-
+    //Wishlist Route
+    Route::post('filter-wishlist', [wishlistController::class, 'filterdata'])->name('filter-wishlist');
+    route::get('/wishlist',[wishlistController::class, 'index'])->name('wishlist');
 });
 
 // Route::middleware([

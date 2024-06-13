@@ -3,7 +3,7 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{ route('dashborad')}}" class="logo d-flex align-items-center">
-        <img src="{{asset('images/TOLL (12).png')}}" alt=""height="80px !important" width="120px !important">
+        <img src="{{asset('images/final logo toll.png')}}" alt="">
         {{-- <span class="d-none d-lg-block">Toll Out</span> --}}
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>

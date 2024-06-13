@@ -1,4 +1,3 @@
-{{-- @dd($users); --}}
 @extends('include.master')
 @section('style-area')
     <style>
@@ -67,11 +66,11 @@
 
 @section('content-area')
     <div class="pagetitle">
-        <h1>All Role</h1>
+        <h1>Wishlist</h1>
         <nav>
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item active">All Role</li>
+                <li class="breadcrumb-item active">Wishlist</li>
             </ol>
         </nav>
     </div>
@@ -84,19 +83,19 @@
                                                                             
                             <div class="col-lg-12 ">
                                 <div class="row mb" style="margin-bottom: 30px; margin-left: 5px;">
-                                    <form action="{{ route('filter-role') }}" method="post">
+                                    <form action="{{ route('filter-wishlist') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')
                                             <div class="col-sm-1 mt-4" style="margin-left: 10px; margin-top: 0px;">
-                                                <a class="btn text-white shadow-lg" href="{{ route('all-role') }}"
+                                                <a class="btn text-white shadow-lg" href="{{ route('show-category') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
-                                            <div class="col-md-1 mt-4">
-                                                <a href="{{ route('add-role')}}" class="btn shadow btn-xs sharp me-1 text-white"
-                                                    
+                                            {{-- <div class="col-md-1 mt-4">
+                                                <a href="{{ route('category.store')}}" class="btn shadow btn-xs sharp me-1 text-white"
+                                                    data-bs-toggle="modal" data-bs-target="#categoryModal"
                                                     style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                     </form>
                                 </div>
@@ -111,43 +110,52 @@
                                     </div>
                                 @endif
                                 <div class="card">
-                                    <div class="card-body table-responsive">
-                                        <table id="customerTable" class="display nowrap" style="width:100%">
-                                            <thead>
-                                                <tr class="text-center">
-                                                    <th>S no.</th>  
-                                                    <th>Created Date</th>
-                                                    <th>Role</th>  
-                                                    <th>Assign Module</th> 
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($users as $user)
-                                                    <tr class="odd" data-user-id="{{ $user->id }}">
-                                                        <td class="text-center">{{ $loop->iteration }}</td>
-                                                        <td class="text-center">{{ $user->created_at->timezone('Asia/Kolkata')->format('d F Y h:i A') }}</td>
-                                                        <td class="text-center">{{ $user->role }}</td>
-                                                        @php
-                                                            $userpermission = json_decode($user->permissions);
-                                                            $allpermission = '';
-                                                            if (!is_null($userpermission) && is_array($userpermission)) {
-                                                                $allpermission = implode(',', $userpermission);
-                                                            }
-                                                        @endphp
-                                                        <td style="width:100px !important">{{ $allpermission }}</td>
-                                                        <td style="text-align: center;">
-                                                            <div class="d-flex justify-content-center">
-                                                                <a href="{{ route('edit-role',encrypt($user->id))}}" class="btn btn-primary shadow btn-xs sharp me-1 edit-category"style="background-color:#033496;border:none"><i class="fas fa-pencil-alt"></i></a>
-                                                                <a data-notify-id="{{ $user->id }}"
-                                                                    class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
-                                                                        class="fas fa-trash"></i></a>
-                                                            </div>
-                                                        </td>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table id="customerTable" class="display nowrap" style="width:100%">
+                                                <thead>
+                                                    <tr class="text-center">
+                                                        <th>S No.</th>
+                                                        <th>Created Date</th>
+                                                        <th>Customer Id</th>
+                                                        <th>Name</th>
+                                                        <th>Subject</th>
+                                                        <th>Message</th>
+                                                        <th>Reply Date</th>
+                                                        <th>Reply</th>
+                                                        <th style="text-align: center;">Action</th>
                                                     </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                {{-- <tbody>
+                                                    @foreach ($wishlists as $category)
+                                                        <tr>
+                                                            <td class="text-center">{{ $loop->iteration }}</td>
+                                                            <td style="text-align: center;">
+                                                                {{ $category->created_at->timezone('Asia/Kolkata')->format('d F Y') }}
+                                                            </td>
+                                                            <td style="text-align: center;">{{ $category->customer->customer_id }}</td>
+                                                            <td style="text-align: center;">{{ $category->customer->name }}</td>
+                                                            <td style="text-align: center;">{{ $category->subject }}</td>
+                                                            <td style="text-align: center;">{{ $category->message }}</td>
+                                                            <td style="text-align: center;">{{ $category->reply_date->format('d F Y h:i A') }}</td>
+                                                            <td style="text-align: center;">{{ $category->reply }}</td>
+                                                            <td style="text-align: center;">
+                                                                <div class="d-flex justify-content-center">
+                                                                    <a href="#"
+                                                                        class="btn btn-success shadow btn-1x sharp me-1 reply-btn" style="background-color:#033496;border:none"
+                                                                        data-feedback-id="{{ $category->id }}"
+                                                                        data-bs-toggle="modal" data-bs-target="#basicModal">Reply
+                                                                    </a>
+                                                                    <a data-notify-id="{{ $category->id }}"
+                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
+                                                                            class="fas fa-trash"></i></a>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @endforeach
+                                                </tbody> --}}
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -157,23 +165,22 @@
             </section>
         </div>
     </section>
-
+    
 @endsection
 @section('script-area')
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.statusSwitch').forEach(function(switchButton) {
-                switchButton.addEventListener('change', function() {
-                    var status = this.checked ? 1 : 0;
-                    var categoryId = this.dataset.categoryId;
-                    updateStatus(categoryId, status);
-                });
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const replyButtons = document.querySelectorAll('.reply-btn');
+        replyButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const feedbackId = this.getAttribute('data-feedback-id');
+                document.getElementById('feedbackId').value = feedbackId;
             });
         });
-    </script>
-
+    });
+</script>
     <script>
-       $(document).ready(function() {
+        $(document).ready(function() {
             $('#customerTable').DataTable({
                 dom: '<"top"Bf>rt<"bottom"lp><"clear">',
                 buttons: [
@@ -199,7 +206,7 @@
                     var userId = this.dataset.notifyId;
                     swal.fire({
                         title: 'Are you sure?',
-                        text: 'If you delete this role all the user of this role is deleted!',
+                        text: 'You will not be able to recover this Notification!',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',
@@ -217,7 +224,7 @@
 
         function deleteFAQ(notifyId) {
             var token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-            var url = "{{ route('delete-role', ':notifyId') }}".replace(':notifyId', notifyId);
+            var url = "{{ route('category.destroy', ':notifyId') }}".replace(':notifyId', notifyId);
             fetch(url, {
                     method: 'DELETE',
                     headers: {
@@ -227,14 +234,14 @@
                 })
                 .then(response => {
                     if (!response.ok) {
-                        throw new Error('Failed to delete Role');
+                        throw new Error('Failed to delete Feedback');
                     }
                     return response.json();
                 })
                 .then(data => {
                     swal.fire({
                         title: 'Deleted!',
-                        text: 'The Role has been deleted.',
+                        text: 'The Feedback has been deleted.',
                         icon: 'success',
                         timer: 2000
                     }).then(() => {
@@ -245,7 +252,7 @@
                     console.error('Error:', error);
                     swal.fire({
                         title: 'Error!',
-                        text: 'Failed to delete Role.',
+                        text: 'Failed to delete Feedback.',
                         icon: 'error'
                     });
                 });

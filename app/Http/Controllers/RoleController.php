@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\User;
 
 class RoleController extends Controller
 {
@@ -51,9 +52,9 @@ class RoleController extends Controller
     }
     public function delete($id){
         
-        try{
-             
+        try{  
         $user = Role::findOrFail($id);
+        $role= User::where('role_id',$id)->delete();
         $user->delete();
         return response()->json(['success' => true]);
         } catch (\Exception $e) {

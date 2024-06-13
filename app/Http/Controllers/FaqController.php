@@ -66,6 +66,9 @@ class FaqController extends Controller
             'start' => 'required|date',
             'end' => 'required|date|after_or_equal:start',
         ]);
+        // if($validator->fails()){
+        //     return redirect()->back();
+        // }
         $startDate = $request->start;
         $endDate = $request->end;
         $faqs = Faq::whereBetween('created_at', [$startDate, $endDate])->get();
