@@ -12,7 +12,7 @@
   <link href="{{asset('genralcss/quill.snow.css')}}" rel="stylesheet">
   <link href="{{asset('genralcss/quill.bubble.css')}}" rel="stylesheet">
   <link href="{{asset('genralcss/remixicon.css')}}" rel="stylesheet">
-  <link href="{{asset('genralcss/style.css.css')}}" rel="stylesheet">
+  <link href="{{asset('genralcss/style.css')}}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">

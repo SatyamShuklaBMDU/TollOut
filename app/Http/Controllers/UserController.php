@@ -37,16 +37,16 @@ class UserController extends Controller
     {
         if ($request->ajax()) {
             $query = customer::query();
-    
+
             // Check if date range is provided
             if ($request->filled('start_date') && $request->filled('end_date')) {
                 $startDate = $request->start_date;
                 $endDate = $request->end_date;
-    
+
                 // Filter records based on the provided date range
                 $query->whereBetween('created_at', [$startDate, $endDate]);
             }
-    
+
             // Apply search filter if provided
             if ($request->has('search') && $request->search['value']) {
                 $search = $request->search['value'];
@@ -57,19 +57,19 @@ class UserController extends Controller
                         ->orWhere('phone', 'like', "%{$search}%");
                 });
             }
-    
+
             $data = $query->latest()->get();
             return \Yajra\DataTables\Facades\DataTables::of($data)
                 ->addIndexColumn()
                 ->addColumn('profile', function ($row) {
                     $imageUrl = asset($row->profile);
                     if (!empty($row->profile) && file_exists(public_path($row->profile))) {
-                        return '<a href="'.$imageUrl.'" class="profile-link" data-toggle="modal" target="_blank"data-target="#profileModal"">
+                        return '<a href="' . $imageUrl . '" class="profile-link" data-toggle="modal" target="_blank"data-target="#profileModal"">
                                     <img src="' . $imageUrl . '" alt="Profile Picture" class="rounded-circle" width="35" height="35">
                                 </a>';
                     } else {
                         $image = asset('images/no-profile-picture-15257.png');
-                        return '<img src="'.$image.'"class="rounded-circle" width="35" height="35"</img>';
+                        return '<img src="' . $image . '"class="rounded-circle" width="35" height="35"</img>';
                     }
                 })
                 ->editColumn('created_at', function ($row) {
@@ -82,12 +82,18 @@ class UserController extends Controller
                                     </select>';
                     return $statusDropdown;
                 })
-                ->rawColumns(['profile', 'status']) // Ensure 'profile' and 'status' are treated as raw HTML
+                ->editColumn('customer_id', function ($row) {
+                    return $row->customer_id;
+                })
+                ->editColumn('dob', function ($row) {
+                    return \Carbon\Carbon::parse($row->dob)->format('d F Y');
+                })
+                ->rawColumns(['profile', 'status', 'customer_id']) // Ensure 'profile' and 'status' are treated as raw HTML
                 ->make(true);
         }
         return view('admin.all_users');
     }
-    
+
 
     public function changeStatus(Request $request)
     {

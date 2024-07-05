@@ -1,6 +1,10 @@
 @extends('include.master')
 @section('style-area')
     <style>
+        .btn1 {
+            --bs-btn-padding-x: 0.4rem !important;
+            --bs-btn-padding-y: 0.125rem;
+        }
         .dt-button {
             background-color: #f66f01 !important;
             color: white !important;
@@ -137,7 +141,7 @@
                                                             <td style="text-align: center;">{{ $category->customer->name }}</td>
                                                             <td style="text-align: center;">{{ $category->subject }}</td>
                                                             <td style="text-align: center;">{{ $category->message }}</td>
-                                                            <td style="text-align: center;">{{ $category->reply_date->format('d F Y h:i A') }}</td>
+                                                            <td style="text-align: center;">{{ $category->reply_date }}</td>
                                                             <td style="text-align: center;">{{ $category->reply }}</td>
                                                             <td style="text-align: center;">
                                                                 <div class="d-flex justify-content-center">
@@ -147,7 +151,7 @@
                                                                         data-bs-toggle="modal" data-bs-target="#basicModal">Reply
                                                                     </a>
                                                                     <a data-notify-id="{{ $category->id }}"
-                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
+                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn btn1"><i
                                                                             class="fas fa-trash"></i></a>
                                                                 </div>
                                                             </td>

@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Toll Out</title>
+    <title>TollOut</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
 <body
-    style="background-image: url(images/bg1.jpg);background-position: center center;
+    style="background-image: url({{asset('images/bg1.jpg')}});background-position: center center;
     background-repeat:  no-repeat;
     background-attachment: fixed;
     background-size:  cover;">
@@ -18,7 +18,7 @@
         <div class="row justify-content-center">
             <div class="col-md-5">
                 <div class="card shadow-lg">
-                    <img src="images/final 06.png" alt="">
+                    <img src="{{asset('images/final 06.png')}}" alt="">
                     <div class="p-2">
                         @if (session('status'))
                             <div class="mb-4 font-medium text-sm text-green-600">
@@ -45,9 +45,9 @@
                             <form action="{{ route('login') }}" method="post">
                                 @csrf
                                 <div class="form-group mb-3">
-                                    <label for="email">Email ID</label>
+                                    <label for="email">Email</label>
                                     <input type="email" id="email" name="email" class="form-control py-4"
-                                        placeholder="Enter Your Email" style="border-radius: 15px;"required>
+                                        placeholder="Enter Your Email Id" style="border-radius: 15px;"required>
                                 </div>
                                 <div class="form-group my-3">
                                     <label for="password">Password</label>
@@ -55,15 +55,11 @@
                                         class="form-control py-4"placeholder="Enter Your Password" required
                                         style="border-radius: 15px;">
                                 </div>
-                                <div class="form-group my-4 ms-3">
-                                    <input type="checkbox" class="form-check-input"id="basic_checkbox_1"
-                                        style="margin-left:5px">
-                                    <label class="form-check-label" for="basic_checkbox_1"
-                                        style="padding-left: 30px;">Remember My Preference</label>
+                                <div class="mt-4">
+                                    <button type="submit"
+                                        class="btn btn-primary btn-block py-2 shadow-sm"style="border-radius: 15px; background-color:#f66f01;border:none;">Sign
+                                        In</button>
                                 </div>
-                                <button type="submit"
-                                    class="btn btn-primary btn-block py-2 shadow-sm"style="border-radius: 15px; background-color:#f66f01;border:none;">Sign
-                                    In</button>
                             </form>
                         </div>
                     </div>

@@ -2,6 +2,10 @@
 @extends('include.master')
 @section('style-area')
     <style>
+        .btn1 {
+            --bs-btn-padding-x: 0.4rem !important;
+            --bs-btn-padding-y: 0.125rem;
+        }
         .dt-button {
             background-color: #f66f01 !important;
             color: white !important;
@@ -92,10 +96,17 @@
                                                 <a class="btn text-white shadow-lg" href="{{ route('all-role') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
-                                            <div class="col-md-1 mt-4">
+                                            <div class="col-sm-4 mt-4"
+                                            
+                                            style=" position: relative;"
+                                            
+                                            >
                                                 <a href="{{ route('add-role')}}" class="btn shadow btn-xs sharp me-1 text-white"
                                                     
-                                                    style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
+                                                    style="
+                                                     position: absolute;
+                                                    right: 0;
+                                                    margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
                                             </div>
                                         </div>
                                     </form>
@@ -138,9 +149,9 @@
                                                         <td style="width:100px !important">{{ $allpermission }}</td>
                                                         <td style="text-align: center;">
                                                             <div class="d-flex justify-content-center">
-                                                                <a href="{{ route('edit-role',encrypt($user->id))}}" class="btn btn-primary shadow btn-xs sharp me-1 edit-category"style="background-color:#033496;border:none"><i class="fas fa-pencil-alt"></i></a>
+                                                                <a href="{{ route('edit-role',encrypt($user->id))}}" class="btn btn-primary shadow btn-xs sharp me-1 edit-category btn1"style="background-color:#033496;border:none"><i class="fas fa-pencil-alt"></i></a>
                                                                 <a data-notify-id="{{ $user->id }}"
-                                                                    class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
+                                                                    class="btn btn-danger shadow btn-xs sharp deleteBtn btn1"><i
                                                                         class="fas fa-trash"></i></a>
                                                             </div>
                                                         </td>
@@ -199,7 +210,7 @@
                     var userId = this.dataset.notifyId;
                     swal.fire({
                         title: 'Are you sure?',
-                        text: 'If you delete this role all the user of this role is deleted!',
+                        text: 'If you delete this role all the user of this role is deleted.',
                         icon: 'warning',
                         showCancelButton: true,
                         confirmButtonColor: '#d33',

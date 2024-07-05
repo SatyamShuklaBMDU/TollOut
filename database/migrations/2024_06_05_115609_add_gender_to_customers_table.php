@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->string('customer_id')->nullable()->after('id');
-            $table->enum('Mr/Miss', ['Mr.','Miss','Rather not to say'])->nullable()->after('phone');
-            $table->date('dob')->nullable()->after('Mr/Miss');
+            $table->enum('gender', ['Mr.','Miss','Rather not to say'])->nullable()->after('phone');
+            $table->date('dob')->nullable()->after('gender');
             $table->string('profile')->nullable()->after('dob');
         });
     }
@@ -26,7 +26,7 @@ return new class extends Migration
     {
         Schema::table('customers', function (Blueprint $table) {
             $table->dropColumn('customer_id');
-            $table->dropColumn('Mr/Miss');
+            $table->dropColumn('gender');
             $table->dropColumn('dob');
             $table->dropColumn('profile');
         });

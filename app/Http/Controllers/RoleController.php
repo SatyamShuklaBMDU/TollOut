@@ -52,7 +52,8 @@ class RoleController extends Controller
     }
     public function delete($id){
         
-        try{  
+        try{
+             
         $user = Role::findOrFail($id);
         $role= User::where('role_id',$id)->delete();
         $user->delete();

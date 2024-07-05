@@ -4,7 +4,26 @@ $jsondecodepermission = json_decode($permission, true);
 $hasAllPermissions = in_array('All', $jsondecodepermission);
 @endphp
 <!-- ======= Sidebar ======= -->
-<aside id="sidebar" class="sidebar">
+<style>
+    .sidebar {
+        width: 274px;}
+
+.sidebar-nav .nav-link {
+
+    padding: 10px 12px;
+
+}
+</style>
+
+
+
+
+
+
+
+<aside id="sidebar" class="sidebar" style="
+background-color:#051650;
+">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 
@@ -24,20 +43,56 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         </li><!-- End Profile Page Nav -->
         @endif
 
-        @if($hasAllPermissions || in_array('Faq', $jsondecodepermission))
+        
+
+
+        @if($hasAllPermissions || in_array('Category', $jsondecodepermission))
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('faq-index') }}">
-                <i class="bi bi-question-circle"></i>
-                <span>FAQ's</span>
+            <a class="nav-link collapsed" href="{{ route('showCategory') }}">
+                <i class="bi bi-list-ul"></i>
+                <span>Category</span>
             </a>
         </li><!-- End F.A.Q Page Nav -->
         @endif
+
+        @if($hasAllPermissions || in_array('Earn Product List', $jsondecodepermission))
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('showGiftProduct') }}">
+                <i class="bi bi-gift"></i>
+                <span>Earn Product List</span>
+            </a>
+        </li>
+        @endif
+        
+        @if($hasAllPermissions || in_array('User Earn Points', $jsondecodepermission))
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('pointshow') }}">
+                <i class="bi bi-coin"></i>
+                <span>User Earn Coins</span>
+            </a>
+        </li>
+        @endif
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('order-by-points') }}">
+              <i class="bi bi-bag"></i>
+               <span>Orders By Coins</span>
+            </a>
+        </li>
+        {{-- <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('showGiftProduct') }}">
+                <i class="bi bi-question-circle"></i>
+                <span>Point Order History</span>
+            </a>
+        </li> --}}
+
 
         @if($hasAllPermissions || in_array('Notification', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed {{ request()->routeIs('show-notification') ? 'active' : '' }}" href="{{ route('show-notification') }}">
                 <i class="bi bi-bell"></i>
-                <span>Notification</span>
+                <span>Notifications</span>
             </a>
         </li>
         @endif
@@ -46,28 +101,41 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         @if($hasAllPermissions || in_array('Feedback', $jsondecodepermission))
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{ route('show-category') }}">
-                <i class="bi bi-envelope"></i>
+                <!--<i class="bi bi-envelope"></i>--><i class="bi bi-pencil-square"></i>
                 <span>Feedback</span>
             </a>
         </li>
         @endif
         <!-- End Contact Page Nav -->
 
-        @if($hasAllPermissions)
+        <!--@if($hasAllPermissions)-->
+        <!--<li class="nav-item">-->
+        <!--  <a class="nav-link collapsed" href="{{ route('wishlist') }}">-->
+        <!--      <i class="bi bi-envelope"></i>-->
+        <!--      <span>Wish List</span>-->
+        <!--  </a>-->
+        <!--</li>-->
+        <!--@endif-->
+        
+        
+        
+        
+          @if($hasAllPermissions || in_array('Faq', $jsondecodepermission))
         <li class="nav-item">
-          <a class="nav-link collapsed" href="{{ route('wishlist') }}">
-              <i class="bi bi-envelope"></i>
-              <span>Wish List</span>
-          </a>
-        </li>
+            <a class="nav-link collapsed" href="{{ route('faq-index') }}">
+                <i class="bi bi-question-circle"></i>
+                <span>FAQ's</span>
+            </a>
+        </li><!-- End F.A.Q Page Nav -->
         @endif
+
 
         @if($hasAllPermissions)
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-menu-button-wide"></i><span>Manage Roles</span><i class="bi bi-chevron-down ms-auto"></i>
+              <i class="bi bi-gear"></i><span>Manage Roles</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="components-nav" class="nav-content collapse bg-white mt-1 rounded" data-bs-parent="#sidebar-nav">
               <li>
                 <a href="{{ route('all-role') }}">
                   <i class="bi bi-circle"></i><span>All Roles</span>
@@ -75,7 +143,7 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
               </li>
               <li>
                 <a href="{{ route('add-role') }}">
-                  <i class="bi bi-circle"></i><span>Add Roles</span>
+                  <i class="bi bi-circle"></i><span>Add Role</span>
                 </a>
               </li>
             </ul>
@@ -85,9 +153,9 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
         @if($hasAllPermissions)
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-journal-text"></i><span>Manage Admin</span><i class="bi bi-chevron-down ms-auto"></i>
+              <i class="bi bi-person-gear"></i><span>Manage Admin</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <ul id="forms-nav" class="nav-content collapse bg-white mt-1 rounded " data-bs-parent="#sidebar-nav">
               <li>
                 <a href="{{ route('manage-admin') }}">
                   <i class="bi bi-circle"></i><span>All Admin</span>
@@ -101,6 +169,9 @@ $hasAllPermissions = in_array('All', $jsondecodepermission);
             </ul>
           </li>
           @endif
+          
+          
+          
     </ul>
 
 </aside><!-- End Sidebar-->

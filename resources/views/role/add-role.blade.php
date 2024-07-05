@@ -99,7 +99,7 @@
                                                                 <input class="form-check-input" type="checkbox" value="Faq" id="faqmanagement"
                                                                     name="permission[]">
                                                                 <label class="form-check-label" for="faqmanagement">
-                                                                    F.A.Q Management
+                                                                    FAQ's Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3" style="">
@@ -114,6 +114,27 @@
                                                                     name="permission[]">
                                                                 <label class="form-check-label" for="feedbackmanagement">
                                                                     Feedback Management
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="Category" id="categorymanagement"
+                                                                    name="permission[]">
+                                                                <label class="form-check-label" for="categorymanagement">
+                                                                    Category Management
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="Earn Product List" id="earnproductmanagement"
+                                                                    name="permission[]">
+                                                                <label class="form-check-label" for="earnproductmanagement">
+                                                                    Earn Product List Management
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="User Earn Points" id="Userearnpointsmanagement"
+                                                                    name="permission[]">
+                                                                <label class="form-check-label" for="Userearnpointsmanagement">
+                                                                    User Earn Points Management
                                                                 </label>
                                                             </div>
                                                         </div>

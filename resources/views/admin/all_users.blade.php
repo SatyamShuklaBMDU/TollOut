@@ -101,6 +101,7 @@
                                                         <th>Join Date</th>
                                                         <th>CIN No.</th>
                                                         <th>Profile</th>
+                                                        <th>Mr/Miss</th>
                                                         <th>Name</th>
                                                         <th>Phone</th>
                                                         <th>Email</th>
@@ -164,6 +165,7 @@
             {data: 'created_at', name: 'created_at'},
             {data: 'customer_id', name: 'customer_id'},
             {data: 'profile', name: 'profile', orderable: false, searchable: false},
+             {data: 'gender', name: 'Mr/Miss'},
             {data: 'name', name: 'name'},
             {data: 'phone', name: 'phone'},
             {data: 'email', name: 'email'},

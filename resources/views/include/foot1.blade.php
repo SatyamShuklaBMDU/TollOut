@@ -5,7 +5,7 @@
 <script src="{{ asset('genraljs/quill.js') }}"></script>
 <script src="{{ asset('genraljs/simple-datatables.js') }}"></script>
 <script src="{{ asset('genraljs/tinymce.min.js') }}"></script>
-<script src="{{ asset('genraljs/validate.js') }}validate.js"></script>
+<script src="{{ asset('genraljs/validate.js') }}"></script>
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/2.2.2/js/dataTables.buttons.min.js"></script>

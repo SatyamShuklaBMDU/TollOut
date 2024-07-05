@@ -1,6 +1,10 @@
 @extends('include.master')
 @section('style-area')
     <style>
+        .btn1 {
+            --bs-btn-padding-x: 0.4rem !important;
+            --bs-btn-padding-y: 0.125rem;
+        }
         .dt-button {
             background-color: #f66f01 !important;
             color: white !important;
@@ -45,10 +49,14 @@
                                                 <a class="btn text-white shadow-lg" href="{{ route('show-notification') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
-                                            <div class="col-md-1 mt-4">
+                                            <div class="col-sm-4 mt-4"style=" position: relative;">
+                                            
                                                 <a href="#" class="btn shadow btn-xs sharp me-1 text-white"
                                                     data-bs-toggle="modal" data-bs-target="#notificationModal"
-                                                    style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
+                                                    style="
+                                                    position: absolute;
+                                                    right: 0;
+                                                    margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
                                             </div>
                                         </div>
                                     </form>
@@ -96,13 +104,13 @@
                                                             </td>
                                                             <td style="text-align: center;">
                                                                 <div class="d-flex justify-content-center">
-                                                                    <a style="background-color:#033496;border:none" class="btn btn-primary shadow btn-xs sharp me-1 edit-notification"
+                                                                    <a style="background-color:#033496;border:none" class="btn btn-primary shadow btn-xs sharp me-1 edit-notification btn1"
                                                                         data-id="{{ $notification->id }}"
                                                                         data-bs-toggle="modal"
                                                                         data-bs-target="#editNotificationModal"><i
                                                                             class="fas fa-pencil-alt"></i></a>
                                                                     <a data-notify-id="{{ $notification->id }}"
-                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn"><i
+                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn btn1"><i
                                                                             class="fas fa-trash"></i></a>
                                                                 </div>
                                                             </td>

@@ -101,7 +101,7 @@
                                                                 <input class="form-check-input" type="checkbox" value="Faq" id="faqmanagement"
                                                                     name="permission[]"{{ in_array('Faq', $permission) ? 'checked' : '' }}>
                                                                 <label class="form-check-label" for="faqmanagement">
-                                                                    F.A.Q Management
+                                                                    FAQ's Management
                                                                 </label>
                                                             </div>
                                                             <div class="form-check col-3" style="">
@@ -118,83 +118,104 @@
                                                                     Feedback Management
                                                                 </label>
                                                             </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="Category" id="categorymanagement"
+                                                                    name="permission[]"{{ in_array('Category', $permission) ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="categorymanagement">
+                                                                    Category Management
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="Earn Product List" id="earnproductmanagement"
+                                                                    name="permission[]"{{ in_array('Earn Product List', $permission) ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="earnproductmanagement">
+                                                                    Earn Product List Management
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check col-3">
+                                                                <input class="form-check-input" type="checkbox" value="User Earn Points" id="Userearnpointsmanagement"
+                                                                    name="permission[]"{{ in_array('User Earn Points', $permission) ? 'checked' : '' }}>
+                                                                <label class="form-check-label" for="Userearnpointsmanagement">
+                                                                    User Earn Points Management
+                                                                </label>
+                                                            </div>
                                                       
                                                         </div>
-                                                        {{-- <div class="row">
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="blogmanagement" id="blogmanagement"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="blogmanagement">
-                                                                    Blog Management
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="notifications" id="notifications"
-                                                                    name="permission[]">
-                                                                <label class="form-check-label" for="notifications">
-                                                                    Notification
-                                                                </label>
-                                                            </div>
+                                                        <!--{{-- <div class="row">-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="blogmanagement" id="blogmanagement"-->
+                                                        <!--            name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="blogmanagement">-->
+                                                        <!--            Blog Management-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="notifications" id="notifications"-->
+                                                        <!--            name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="notifications">-->
+                                                        <!--            Notification-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
                                                 
                                                     
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input " type="checkbox" value="customermanagement"
-                                                                    id="customermanagement" name="permission[]">
-                                                                <label class="form-check-label" for="customermanagement">
-                                                                    Customer Management
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="booking"
-                                                                    id="booking" name="permission[]">
-                                                                <label class="form-check-label" for="booking">
-                                                                    Booking & Scheduling
-                                                                </label>
-                                                            </div>
-                                                        </div>
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input " type="checkbox" value="customermanagement"-->
+                                                        <!--            id="customermanagement" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="customermanagement">-->
+                                                        <!--            Customer Management-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="booking"-->
+                                                        <!--            id="booking" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="booking">-->
+                                                        <!--            Booking & Scheduling-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--</div>-->
                                                     
                                                  
-                                                        <div class="row">
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="payment"
-                                                                    id="payment" name="permission[]">
-                                                                <label class="form-check-label" for="payment">
-                                                                    Payment & Invoicing
-                                                                </label>
-                                                            </div>
+                                                        <!--<div class="row">-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="payment"-->
+                                                        <!--            id="payment" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="payment">-->
+                                                        <!--            Payment & Invoicing-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
                                                
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="feedback"
-                                                                    id="feedback" name="permission[]">
-                                                                <label class="form-check-label" for="feedback">
-                                                                    Feedback
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="complaint"
-                                                                    id="complaint" name="permission[]">
-                                                                <label class="form-check-label" for="complaint">
-                                                                    Complaint
-                                                                </label>
-                                                            </div>
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="feedback"-->
+                                                        <!--            id="feedback" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="feedback">-->
+                                                        <!--            Feedback-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="complaint"-->
+                                                        <!--            id="complaint" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="complaint">-->
+                                                        <!--            Complaint-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
 
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="referral"
-                                                                    id="referral" name="permission[]">
-                                                                <label class="form-check-label" for="referral">
-                                                                    Referral & Earning
-                                                                </label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="form-check col-3">
-                                                                <input class="form-check-input" type="checkbox" value="review"
-                                                                    id="review" name="permission[]">
-                                                                <label class="form-check-label" for="review">
-                                                                    Review & Rating
-                                                                </label>
-                                                            </div>
-                                                        </div> --}}
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="referral"-->
+                                                        <!--            id="referral" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="referral">-->
+                                                        <!--            Referral & Earning-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="row">-->
+                                                        <!--    <div class="form-check col-3">-->
+                                                        <!--        <input class="form-check-input" type="checkbox" value="review"-->
+                                                        <!--            id="review" name="permission[]">-->
+                                                        <!--        <label class="form-check-label" for="review">-->
+                                                        <!--            Review & Rating-->
+                                                        <!--        </label>-->
+                                                        <!--    </div>-->
+                                                        <!--</div> --}}-->
                                                     <button type="submit" class="btn btn-success btn-lg mt-3" style="transform: translateX(0rem);background-color:#f66f01;border:none">Update Roles</button>
                                                 </div>
                                             </div>

@@ -1,22 +1,28 @@
 <?php
 
+
 use App\Http\Controllers\FaqController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ManageAdminController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\RoleController;
+use App\Http\Controllers\OrderByPointsController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\wishlistController;
+use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ManageAdminController;
+use App\Http\Controllers\GiftProductController;
+use App\Http\Controllers\PointsController;
 
+
+use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\SubCategoryController;
 
 Route::get('/', function () {
     return redirect('/login');
 });
 
 route::middleware('auth')->group(function () {
-    Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashborad');
+   Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('dashborad');
     route::get('/logout', [HomeController::class, 'logout'])->name('logout');
     route::middleware(['auth','rolecheck:User'])->group(function(){
     route::get('/users', [UserController::class, 'users'])->name('users');
@@ -72,17 +78,59 @@ route::middleware('auth')->group(function () {
     route::delete('/delete-role/{id}',[RoleController::class, 'delete'])->name('delete-role');
     Route::post('filter-role', [RoleController::class, 'filterdata'])->name('filter-role');
     });
+    
+    
+    
     //Wishlist Route
     Route::post('filter-wishlist', [wishlistController::class, 'filterdata'])->name('filter-wishlist');
     route::get('/wishlist',[wishlistController::class, 'index'])->name('wishlist');
+
+    
+    
+    //Category Route
+    route::middleware(['auth','rolecheck:Category'])->group(function(){
+    Route::get('/category/show', [CategoryController::class, 'index'])->name('showCategory');
+    Route::post('/category/update', [CategoryController::class, 'changeStatus'])->name('category-status-update');
+
+    //Sub- Category Route
+    Route::get('/subcategory/show/{cateogry}', [SubCategoryController::class, 'index'])->name('
+    showSubCategory');
+    Route::post('/subcategory/update', [SubCategoryController::class, 'changeStatus'])->name('subcategory-status-update');
+    });
+    
+    
+    // Gift Product Route
+     route::middleware(['auth','rolecheck:Earn Product List'])->group(function(){
+    Route::get('/gift-product/show', [GiftProductController::class, 'index'])->name('showGiftProduct');
+    Route::post('/gift-product/add', [GiftProductController::class, 'addProduct'])->name
+    ('gift-product-add');
+    Route::post('/giftproduct/status', [GiftProductController::class, 'changeStatus'])->name('gift-product-status');
+    
+    
+    Route::get('/gift-product/{id}', [GiftProductController::class, 'edit'])->name
+    ('editGiftProduct');
+    Route::put('/gift-product/update/{id}', [GiftProductController::class, 'update'])->
+    name('updateGiftProduct');
+    Route::delete('/gift-product/{id}', [GiftProductController::class, 'delete'])->
+    name('deleteGiftProduct');
+     });
+    
+     //Order by Coins
+    route::get('order-by-point',[OrderByPointsController::class,'index'])->name('order-by-points');
+    route::post('point-order-status-update',[OrderByPointsController::class,'changestatus'])->name('point-order-status-update');
+    Route::post('/filter-order-by-points', [OrderByPointsController::class, 'filterdata'])->name('filter-order-by-points');
+
+
+
+    
+    // Points
+    route::middleware(['auth','rolecheck:User Earn Points'])->group(function(){
+    Route::get('/points/show', [PointsController::class, 'index'])->name('pointshow');
+    Route::get('/points/show/{customer}', [PointsController::class, 'ShowPointHistory'])->name('ShowPointHistory');
+    });
+
+
+
+
 });
 
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/dashboard', function () {
-//         return view('admin.dashboard');
-//     })->name('dashboard');
-// });

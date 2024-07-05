@@ -1,6 +1,10 @@
 @extends('include.master')
 @section('style-area')
     <style>
+        .btn1 {
+            --bs-btn-padding-x: 0.4rem !important;
+            --bs-btn-padding-y: 0.125rem;
+        }
         .dt-button {
             background-color: #f66f01 !important;
             color: white !important;
@@ -15,7 +19,7 @@
         .dataTables_length{
             margin-top: 10px;
         }
-
+        
         .statusSwitch {
             --s: 20px;
             /* adjust this to control the size*/
@@ -28,7 +32,7 @@
             margin: calc(var(--s)/2);
             display: grid;
             cursor: pointer;
-            background-color: #ff7a7a;
+            background-color: #f66f01;
             box-sizing: content-box;
             overflow: hidden;
             transition: .3s .1s;
@@ -82,7 +86,7 @@
                                                     margin-top: 20px !important;">
                             <div class="col-lg-12 ">
                                 <div class="row mb" style="margin-bottom: 30px; margin-left: 5px;">
-                                    <form action="{{ route('filter-faq') }}" method="POST">
+                                    <form action="{{ route('filter-faq') }}" method="post">
                                         @csrf
                                         <div class="row">
                                             @include('admin.date')
@@ -90,10 +94,18 @@
                                                 <a class="btn text-white shadow-lg" href="{{ route('faq-index') }}"
                                                     style="background-color:#f66f01;box-shadow: 2px 10px 9px 0px #00000063 !important">Reset</a>
                                             </div>
-                                            <div class="col-md-1  mt-4">
+                                            <div class="col-sm-4  mt-4" style="
+    position: relative;
+">
                                                 <a href="#" class="btn shadow btn-xs sharp me-1 text-white"
                                                     data-bs-toggle="modal" data-bs-target="#basicModal2"
-                                                    style="margin-left:1.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;">Add</a>
+                                                    style="
+                                                    position: absolute;
+                                                    right: 0;
+                                                    margin-left:10.5rem; width: 65px;height: 36px;text-align: center;font-size:1rem;box-shadow: 2px 10px 9px 0px #00000063 !important;line-height:normal;background: #033496;
+                                                    
+                                                    
+                                                    ">Add</a>
                                             </div>
                                         </div>
                                     </form>
@@ -148,13 +160,13 @@
                                                             <td>
                                                                 <div class="d-flex justify-content-center">
                                                                     <a href="#"
-                                                                        class="btn btn-primary shadow btn-xs sharp me-1 editBtn"style="background-color:#033496;border:none";
+                                                                        class="btn btn-primary shadow btn-xs sharp memd-1 editBtn btn1"style="margin-right: 7px;background-color:#033496;border:none";
                                                                         data-faq-id="{{ $faq->id }}"
                                                                         data-bs-toggle="modal"
-                                                                        data-bs-target="#basicModal"><i
-                                                                            class="fas fa-pencil-alt"></i></a>
+                                                                        data-bs-target="#basicModal"> <i 
+                                                                            class="fas fa-pencil-alt mr-2"></i></a>
                                                                     <button
-                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn"
+                                                                        class="btn btn-danger shadow btn-xs sharp deleteBtn btn1"
                                                                         data-faq-id="{{ $faq->id }}"><i
                                                                             class="fas fa-trash"></i></button>
                                                                 </div>
