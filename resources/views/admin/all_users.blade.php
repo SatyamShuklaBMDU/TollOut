@@ -175,6 +175,7 @@
         dom: '<"top"Bf>rt<"bottom"lp><"clear">',
         buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
+            
         ],
         lengthMenu: [10, 25, 50, 75, 100],
         pageLength: 10,

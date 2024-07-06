@@ -49,8 +49,7 @@
     </div><!-- End Page Title -->
 
     <section class="section dashboard">
-        <div class="row">
-            
+        <div class="row">   
             <section class="main_content dashboard_part">
                 <div class="main_content_iner">
                     <div class="container-fluid plr_30 body_white_bg pt_30">
@@ -152,8 +151,12 @@
             $('#customerTable').DataTable({
                 dom: '<"top"Bf>rt<"bottom"lp><"clear">',
                 buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
+                {
+                    extend: 'pdfHtml5',
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL'
+                }
+            ],
                 scrollX: true,
                 // scrollY: 200,
             });

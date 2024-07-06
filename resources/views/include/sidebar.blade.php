@@ -80,12 +80,12 @@ background-color:#051650;
                <span>Orders By Coins</span>
             </a>
         </li>
-        {{-- <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('showGiftProduct') }}">
-                <i class="bi bi-question-circle"></i>
-                <span>Point Order History</span>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('product-post') }}">
+              <i class="bi bi-credit-card-2-front"></i>
+                <span>Product Post</span>
             </a>
-        </li> --}}
+        </li>
 
 
         @if($hasAllPermissions || in_array('Notification', $jsondecodepermission))

@@ -121,7 +121,8 @@ route::middleware('auth')->group(function () {
     Route::post('/filter-order-by-points', [OrderByPointsController::class, 'filterdata'])->name('filter-order-by-points');
 
 
-
+    //product posts
+    route::get('order-by-point',[OrderByPointsController::class,'index'])->name('order-by-points');
     
     // Points
     route::middleware(['auth','rolecheck:User Earn Points'])->group(function(){

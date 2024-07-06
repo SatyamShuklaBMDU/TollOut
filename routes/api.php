@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\GiftProductController;
 use App\Http\Controllers\Api\PointsController;
 
+use App\Http\Controllers\Api\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/registration', [RegistrationController::class, 'registration']);
@@ -24,13 +25,18 @@ Route::middleware('auth:sanctum')->group(function () {
        //gift Product API
     Route::get('/get-gift-product',[GiftProductController::class,'index']);
 
-     Route::post('/gift-order',[PointsController::class,'orderGift']);
+   Route::post('/gift-order',[PointsController::class,'orderGift']);
 
     Route::get('/show-coins',[PointsController::class,'showCoins']);
     
       //get category
     Route::get('/get-category',[CategoryController::class,'getCategory']);
     Route::get('/getSubCategory/{id}',[CategoryController::class,'getSubCategory']);
+
+    //products
+    Route::post('/product-store',[ProductController::class,'index']);
+    Route::get('/get-product',[ProductController::class,'getproduct']);
+    Route::post('/get-customer-product',[ProductController::class,'customerproduct']);
 
 
     

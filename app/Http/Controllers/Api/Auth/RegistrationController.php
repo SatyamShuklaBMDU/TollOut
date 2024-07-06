@@ -25,16 +25,20 @@ class RegistrationController extends Controller
             if ($validator->fails()) {
                 return response()->json(['status' => false, 'message' => 'failed to register', 'errors' => $validator->errors()], 400);
             } else {
+                    do {
+                        $cust_id = 'CIN' . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
+                        $customer_id = customer::where('customer_id', $cust_id)->first();
+                    } while ($customer_id);
 
-                $count = customer::count('id');
-                $customer_id = 'CIN' . sprintf('%05d', intval($count) + 1);
+                // $count = customer::count('id');
+                // $customer_id = 'CIN' . sprintf('%05d', intval($count) + 1);
 
                 $customer = customer::create([
                     'name' => $request->name,
                     'email' => $request->email,
                     'phone' => $request->phone,
                     'password' => hash::make($request->password),
-                    'customer_id' => $customer_id,
+                    'customer_id' => $cust_id,
                 ]);
                 return response()->json(['status' => true, 'message' => 'Register Successfully', 'data' => $customer], 200);
             }
